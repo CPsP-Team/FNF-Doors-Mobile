@@ -188,7 +188,7 @@ class UpdaterProgress {
 	public function new() {}
 }
 
-@:enum
+enum
 abstract UpdaterStep(Int) {
 	var PREPARING = 0;
 	var DOWNLOADING_ASSETS = 1;
