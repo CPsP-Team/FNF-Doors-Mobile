@@ -82,7 +82,7 @@ class CoolUtil
 		if(songPath.replace(".json", "").endsWith("-")) {
 			songPath = songPath.replace("-.json", ".json");
 		}
-		var fileContent = File.getContent('${songPath}');
+		var fileContent = Assets.getText('${songPath}');
 		var encoded = Md5.encode("no glasshat nuh uh");
 		#end
 		return encoded;
@@ -174,7 +174,7 @@ class CoolUtil
 	public static function coolTextFile(path:String):Array<String>
 	{
 		var daList:Array<String> = [];
-		#if sys
+		#if desktop
 		if(FileSystem.exists(path)) daList = File.getContent(path).trim().split('\n');
 		#else
 		if(Assets.exists(path)) daList = Assets.getText(path).trim().split('\n');

@@ -160,7 +160,7 @@ class StoryModeMetadata {
         // If difficulty isn't normal, try to load and override with difficulty-specific data
         if (difficulty == "normal") return;
 
-        var diffPath = 'assets/storymode/${type}/${difficulty}.json';
+        var diffPath = 'assets/storymode/${type}/${difficulty.toLowerCase()}.json';
         if (!Assets.exists(diffPath)) {
             NativeAPI.showMessageBox(
                 'Missing story mode file!',

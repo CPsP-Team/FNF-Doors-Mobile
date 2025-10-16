@@ -47,6 +47,7 @@ class GitCommitMacro {
 			proc.exitCode(true);
 
 			return macro $v{Std.parseInt(proc.stdout.readLine())};
+			trace(proc);
 		} catch(e) {}
 		return macro $v{0}
 		#end

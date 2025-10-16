@@ -77,7 +77,7 @@ class SongMetadata {
         this.deathMetadata = new DeathMetadata();
         
         if (Assets.exists(path)) {
-            var json:Dynamic = Json.parse(sys.io.File.getContent(path));
+            var json:Dynamic = Json.parse(Assets.getText(path));
             
             if (json.artists != null) this.artists = json.artists;
             if (json.music != null) this.music = json.music;
