@@ -104,7 +104,6 @@ class Lang
 			{
 				var rawXml:String = Assets.getText(path);
 				theTranslationXML = Xml.parse(rawXml);
-                trace(rawXml);
 				return true;
 			}
 			catch (err)
