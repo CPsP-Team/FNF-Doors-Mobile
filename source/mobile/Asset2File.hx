@@ -26,40 +26,4 @@ class Asset2File
 		return #if sys Sys.getCwd() + #end id;
 		#end
 	}
-    // by musk
-	public static function readDirectory(folder:String):Array<String>
-	{
-		var something:Array<String> = []; // algo algo, extraño a mi algo:( - musk
-		trace('hsys go to: ' + folder);
-
-		for (library in Assets.list().filter(archives -> archives.contains(folder)))
-		{
-			var splitFolder:Array<String> = [];
-			var stringFolder:String = library;
-
-			if (!library.startsWith('.') && !something.contains(folder)) {
-				stringFolder = stringFolder.replace(folder + '/', ''); // yea
-				splitFolder = stringFolder.split('/');
-			}
-			if (!something.contains(splitFolder[0])) // para que no se repitan
-				something.push(splitFolder[0]);
-		}
-
-		// ordenar por abecedario a-z
-		something.sort(function(a:String, b:String):Int
-		{
-			a = a.toUpperCase();
-			b = b.toUpperCase();
-
-			if (a < b)
-				return -1;
-			else if (a > b)
-				return 1;
-			else
-				return 0;
-		});
-
-		trace('hsys result is: ' + something);
-		return something;
-	}
 }
