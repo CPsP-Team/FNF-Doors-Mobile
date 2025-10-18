@@ -140,7 +140,7 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-	//	FlxG.stage.quality = BEST;
+		FlxG.stage.quality = BEST;
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") 1, #end framerate, framerate, skipSplash, startFullscreen));
@@ -150,7 +150,6 @@ class Main extends Sprite
 			gameThreads.push(Thread.createWithEventLoop(function() {Thread.current().events.promise();}));
 		#end
 
-		#if mobile
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
@@ -158,7 +157,6 @@ class Main extends Sprite
 		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.data.showFPS;
 		}
-		#end
 
 		DoorsVideoSprite.init();
 		MenuSongManager.init();

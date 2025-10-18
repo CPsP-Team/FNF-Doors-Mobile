@@ -95,7 +95,7 @@ class FlxAnimate extends FlxSprite
 
 	public function loadAtlas(Path:String)
 	{
-		if(haxe.io.Path.extension(Path) != "zip" && #if sys !sys.FileSystem.exists('$Path/Animation.json') #else !Assets.exists('$Path/Animation.json') #end )
+		if(haxe.io.Path.extension(Path) != "zip" && #if !mobile !sys.FileSystem.exists('$Path/Animation.json') #else !Assets.exists('$Path/Animation.json') #end )
 		{
 			FlxG.log.error('Animation file not found in specified path: "$path", have you written the correct path?');
 			return;
@@ -514,7 +514,7 @@ class FlxAnimate extends FlxSprite
 		var jsontxt:AnimAtlas = null;
 		if (haxe.io.Path.extension(Path) == "zip")
 		{
-			#if sys
+			#if !mobile
 			var thing = Zip.readZip(sys.io.File.getBytes(Path));
 			#else
 			var thing = Zip.readZip(Assets.getBytes(Path));
@@ -534,7 +534,7 @@ class FlxAnimate extends FlxSprite
 		}
 		else
 		{
-			#if sys
+			#if !mobile
 			jsontxt = haxe.Json.parse(sys.io.File.getContent('$Path/Animation.json'));
 			#else
 			jsontxt = haxe.Json.parse(openfl.Assets.getText('$Path/Animation.json'));
@@ -552,7 +552,11 @@ class FlxAnimate extends FlxSprite
 			var trimmed:String = pathOrStr.trim();
 			trimmed = trimmed.substr(trimmed.length - 5).toLowerCase();
 
+			#if !mobile
 			if(trimmed == '.json') myJson = sys.io.File.getContent(myJson); //is a path
+			#else
+			if(trimmed == '.json') myJson = Assets.getText(myJson);
+			#end
 			animJson = cast haxe.Json.parse(_removeBOM(myJson));
 		}
 		else animJson = cast myJson;
@@ -563,6 +567,7 @@ class FlxAnimate extends FlxSprite
 		var trimmed:String = pathOrStr.trim();
 		trimmed = trimmed.substr(trimmed.length - 5).toLowerCase();
 
+		#if !mobile
 		if(trimmed == '.json') //Path is json
 		{
 			myData = sys.io.File.getContent(pathOrStr);
@@ -573,6 +578,18 @@ class FlxAnimate extends FlxSprite
 			myData = sys.io.File.getContent(pathOrStr);
 			isXml = true;
 		}
+		#else
+		if(trimmed == '.json') //Path is json
+		{
+			myData = Assets.getText(pathOrStr);
+			isXml = false;
+		}
+		else if (trimmed.substr(1) == '.xml') //Path is xml
+		{
+			myData = Assets.getText(pathOrStr);
+			isXml = true;
+		}
+		#end
 		myData = _removeBOM(myData);
 
 		// Automatic if everything else fails

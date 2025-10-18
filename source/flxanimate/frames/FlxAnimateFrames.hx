@@ -88,7 +88,7 @@ class FlxAnimateFrames extends FlxAtlasFrames
         }
         else
         {
-            #if sys
+            #if !mobile
             var texts = sys.FileSystem.readDirectory(Path).filter((text) -> text.startsWith('spritemap') && text.toLowerCase().endsWith('.json'));
             for(i in 0...texts.length) texts[i] = '$Path/' + texts[i];
             #else
@@ -175,10 +175,10 @@ class FlxAnimateFrames extends FlxAtlasFrames
      */
     public static function fromSparrow(Path:FlxSparrow, ?Image:FlxGraphicAsset):FlxAtlasFrames
 	{
-        if (Path is String && #if sys !sys.FileSystem.exists(Path) && #end !Assets.exists(Path))
+        if (Path is String && #if !mobile !sys.FileSystem.exists(Path) && #end !Assets.exists(Path))
 			return null;
 
-		var data:Access = new Access((Path is String) ? Xml.parse(#if sys sys.io.File.getContent(Path) #else Assets.getText(Path) #end).firstElement() : Path.firstElement());
+		var data:Access = new Access((Path is String) ? Xml.parse(#if !mobile sys.io.File.getContent(Path) #else Assets.getText(Path) #end).firstElement() : Path.firstElement());
         if (Image == null)
         {
             if (Path is String)
@@ -277,7 +277,7 @@ class FlxAnimateFrames extends FlxAtlasFrames
         if (Path is String && !Assets.exists(Path))
             return null;
 
-        var data:JsonNormal = (Path is String) ? haxe.Json.parse(#if sys sys.io.File.getContent(Path) #else Assets.getText(Path) #end) : Path;
+        var data:JsonNormal = (Path is String) ? haxe.Json.parse(#if !mobile sys.io.File.getContent(Path) #else Assets.getText(Path) #end) : Path;
         if (Image == null)
         {
             if (Path is String)

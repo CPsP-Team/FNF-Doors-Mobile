@@ -94,7 +94,7 @@ class GalleryState extends MusicBeatState
 	private function loadGalleryData():Void
 	{
 		var jsonPath:String = Paths.getPreloadPath("data/gallery.json");
-		var json:GalleryData = Json.parse(sys.io.File.getContent(jsonPath));
+		var json:GalleryData = Json.parse(Assets.getText(jsonPath));
 
 		if(json != null){
 			galleryData = json;

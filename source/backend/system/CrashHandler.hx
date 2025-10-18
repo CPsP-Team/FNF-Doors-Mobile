@@ -55,6 +55,7 @@ class CrashHandler {
     e.stopImmediatePropagation();
 
     NativeAPI.showMessageBox("Doors Engine Crash Handler", 'Uncaught Error : $m\n\n$stackLabel', MSG_ERROR);
+    
     #if sys
     Sys.exit(1);
     #end
