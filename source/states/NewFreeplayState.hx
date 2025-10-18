@@ -129,6 +129,10 @@ class NewFreeplayState extends MusicBeatState
 		
 		changeCategory(0);
 		inBook = false;
+
+        #if mobile
+		addVirtualPad(LEFT_RIGHT, A_B);
+		#end
 		super.create();
 		Paths.clearUnusedMemory();
 		

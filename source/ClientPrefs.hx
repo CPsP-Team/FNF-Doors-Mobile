@@ -1,6 +1,7 @@
 package;
 
 import flixel.input.gamepad.FlxGamepadInputID;
+import mobile.flixel.input.FlxMobileInputID;
 import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
@@ -17,6 +18,15 @@ import flixel.input.keyboard.FlxKey;
 	public var flashing:Bool = true;
 	public var autoPause:Bool = true;
 	public var antialiasing:Bool = true;
+
+	public var padalpha:Float = 0.5;
+	public var hitboxalpha:Float = 0.2;
+
+	#if mobile
+	public var altControls:Bool = false;
+	public var altCCustom:String = "middle";
+	public var altCType:String = "space";
+	#end
 
 	public var lowQuality:Bool = false;
 	public var shaders:Bool = true;
@@ -118,12 +128,31 @@ class ClientPrefs {
 		'reset'			=> [BACK]
 	];
 
+	public static var mobileBinds:Map<String, Array<FlxMobileInputID>> = [
+		'note_up'		=> [noteUP, UP2],
+		'note_left'		=> [noteLEFT, LEFT2],
+		'note_down'		=> [noteDOWN, DOWN2],
+		'note_right'	=> [noteRIGHT, RIGHT2],
+
+		'ui_up'			=> [UP, noteUP],
+		'ui_left'		=> [LEFT, noteLEFT],
+		'ui_down'		=> [DOWN, noteDOWN],
+		'ui_right'		=> [RIGHT, noteRIGHT],
+
+		'accept'		=> [A],
+		'back'			=> [B],
+		'pause'			=> [NONE],
+		'reset'			=> [NONE]
+	];
 	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
 	public static var defaultButtons:Map<String, Array<FlxGamepadInputID>> = null;
+	public static var defaultMobileBinds:Map<String, Array<FlxMobileInputID>> = null;
 
-	public static function loadDefaultKeys() {
+	public static function loadDefaultKeys()
+	{
 		defaultKeys = keyBinds.copy();
 		defaultButtons = gamepadBinds.copy();
+		defaultMobileBinds = mobileBinds.copy();
 	}
 
 	public static function saveSettings() {
@@ -136,6 +165,7 @@ class ClientPrefs {
 		save.bind('controls_v3', 'leetram'); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		save.data.keyboard = keyBinds;
 		save.data.gamepad = gamepadBinds;
+		save.data.mobile = mobileBinds;
 		FlxG.log.add("Settings saved!");
 		save.flush();
 
@@ -189,6 +219,11 @@ class ClientPrefs {
 				for (control => keys in loadedControls) {
 					if(gamepadBinds.exists(control)) gamepadBinds.set(control, keys);
 				}
+			}
+			if(save.data.mobile != null) {
+				var loadedControls:Map<String, Array<FlxMobileInputID>> = save.data.mobile;
+				for (control => keys in loadedControls)
+					if(mobileBinds.exists(control)) mobileBinds.set(control, keys);
 			}
 			reloadVolumeKeys();
 		}
@@ -252,11 +287,14 @@ class ClientPrefs {
 			}
 		}
 
-	public static function clearInvalidKeys(key:String) {
+	public static function clearInvalidKeys(key:String)
+	{
 		var keyBind:Array<FlxKey> = keyBinds.get(key);
 		var gamepadBind:Array<FlxGamepadInputID> = gamepadBinds.get(key);
+		var mobileBind:Array<FlxMobileInputID> = mobileBinds.get(key);
 		while(keyBind != null && keyBind.contains(NONE)) keyBind.remove(NONE);
 		while(gamepadBind != null && gamepadBind.contains(NONE)) gamepadBind.remove(NONE);
+		while(mobileBind != null && mobileBind.contains(NONE)) mobileBind.remove(NONE);
 	}
 
 	public static function reloadVolumeKeys() {
