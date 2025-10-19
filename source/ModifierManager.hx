@@ -1,6 +1,5 @@
 package;
 
-import sys.io.File;
 import haxe.Json;
 import flixel.math.FlxRandom;
 

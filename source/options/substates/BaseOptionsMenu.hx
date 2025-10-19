@@ -10,6 +10,7 @@ import objects.ui.DoorsOption;
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
+import flixel.input.touch.FlxTouch;
 import flixel.FlxSprite;
 
 using StringTools;
@@ -40,22 +41,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		switch (label)
 		{
 			case 'language':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.LanguageSubState());
 			case 'controls':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.NewControlsSubState());
 			case 'graphics':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.GraphicsSettingsSubState());
 			case 'visuals':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.VisualsUISubState());
 			case 'gameplay':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.GameplaySettingsSubState());
 			case 'glasshat':
-				//removeVirtualPad();
 				_parentState.openSubState(new online.GlasshatLogin());
 		}
 		
@@ -87,12 +82,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 		add(bg);
 
+		#if desktop
 		if (title == null)
 			title = 'Options';
 		if (rpcTitle == null)
 			rpcTitle = 'Options Menu';
-
-		#if desktop
 		DiscordClient.changePresence(rpcTitle, null);
 		#end
 
@@ -111,10 +105,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		makeButtons(hideGlasshat);
 		changeSelection();
 
-		#if mobile
-		addVirtualPad(LEFT_FULL, A_B_X_Y);
-		addVirtualPadCamera();
-		#end
 
 		if (isFirstOpen)
 		{
@@ -133,60 +123,73 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var canUpdate:Bool = true;
 
 	override function update(elapsed:Float)
-	{
-		canUpdate = true;
-		if (internalTitle == "controls")
-		{
-			grpOptions.forEach(function(cnt)
-			{
-				@:privateAccess if (cnt.optionType != CONTROLTITLE)
-				{
-					if (cnt.binding)
-						canUpdate = false;
-				}
-			});
-		}
+{
+    canUpdate = true;
+    if (internalTitle == "controls")
+    {
+        grpOptions.forEach(function(cnt)
+        {
+            @:privateAccess if (cnt.optionType != CONTROLTITLE)
+            {
+                if (cnt.binding)
+                    canUpdate = false;
+            }
+        });
+    }
 
-		if (canUpdate)
-		{
-			var upScroll = FlxG.mouse.wheel > 0;
-			var downScroll = FlxG.mouse.wheel < 0;
-			if (controls.UI_UP_P || upScroll)
-				changeSelection(-1);
-			if (controls.UI_DOWN_P || downScroll)
-				changeSelection(1);
+    if (canUpdate)
+    {
+        var upScroll:Bool = false;
+        var downScroll:Bool = false;
 
-			#if mobile
-			if (virtualPad.buttonX.justPressed)
-			{
-				removeVirtualPad();
-				openSubState(new mobile.MobileControlsSubState());
-			}
-			if (virtualPad.buttonY.justPressed)
-			{
-				removeVirtualPad();
-				openSubState(new mobile.AndroidSettingsSubState());
-			}
-			#end
+        #if mobile
+        var lastTouchY:Float = 0;
+        var dragging:Bool = false;
 
-			if (controls.BACK)
-			{
-				ClientPrefs.saveSettings();
-				close();
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-			}
+        var touch = FlxG.touches.getFirst();
+        if (touch != null) {
+            if (touch.justPressed) {
+                dragging = true;
+                lastTouchY = touch.screenY;
+            } else if (touch.pressed && dragging) {
+                var dy = touch.screenY - lastTouchY;
 
-			var rect = FlxRect.get(0, 0, 1232, 539);
-			for (i => o in grpOptions.members)
-			{
-				o.y = FlxMath.lerp(o.y, yLerpTargets[i] + grpOptions.y, CoolUtil.boundTo(elapsed * 12, 0, 1));
-				o.clipRect = CoolUtil.calcRectByGlobal(o, FlxRect.get(24, 92, 1232, 539));
-			}
-			rect.put();
-		}
+                upScroll = dy > 0;
+                downScroll = dy < 0;
 
-		super.update(elapsed);
-	}
+                lastTouchY = touch.screenY;
+            } else if (touch.justReleased) {
+                dragging = false;
+            }
+        }
+        #else
+        upScroll = FlxG.mouse.wheel > 0;
+        downScroll = FlxG.mouse.wheel < 0;
+        #end
+
+        if (controls.UI_UP_P || upScroll)
+            changeSelection(-1);
+        if (controls.UI_DOWN_P || downScroll)
+            changeSelection(1);
+
+        if (controls.BACK)
+        {
+            ClientPrefs.saveSettings();
+            close();
+            FlxG.sound.play(Paths.sound('cancelMenu'));
+        }
+
+        var rect = FlxRect.get(0, 0, 1232, 539);
+        for (i => o in grpOptions.members)
+        {
+            o.y = FlxMath.lerp(o.y, yLerpTargets[i] + grpOptions.y, CoolUtil.boundTo(elapsed * 12, 0, 1));
+            o.clipRect = CoolUtil.calcRectByGlobal(o, FlxRect.get(24, 92, 1232, 539));
+        }
+        rect.put();
+    }
+
+    super.update(elapsed);
+}
 
 	function changeSelection(change:Int = 0)
 	{

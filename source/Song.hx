@@ -173,7 +173,7 @@ class Song
 		var swagShit:SwagSong = cast Json.parse(dummySong);
 		swagShit.validScore = false;
 		swagShit.song = formattedSong.trim();
-		trace("Chart Missing from: "+formattedSong);
+		trace("Chart Missing from: " + formattedSong);
 		return swagShit;
 	}
 
