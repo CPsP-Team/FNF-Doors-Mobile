@@ -141,6 +141,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		if (canUpdate)
 		{
 			#if mobile
+			var upScroll = 0;
+			var downScroll = 0;
+			
             var lastTouchY:Float = 0;
             var dragging:Bool = false;
 
@@ -152,8 +155,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
                 } else if (touch.pressed && dragging) {
                   var dy = touch.screenY - lastTouchY;
 
-				  var upScroll = dy > 0;
-			      var downScroll = dy < 0;
+				  upScroll = dy > 0;
+			      downScroll = dy < 0;
 
                   lastTouchY = touch.screenY;
                 } else if (touch.justReleased) {
