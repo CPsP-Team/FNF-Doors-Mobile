@@ -37,12 +37,13 @@ class AndroidSettingsSubState extends BaseOptionsMenu
 {
 	public function new()
 	{
+		internalTitle = "androidControls";
 		title = 'Android Controls Settings';
 		rpcTitle = 'Android Controls Settings Menu'; // hi, you can ask what is that, i will answer it's all what you needed lol.
 
-		var option:CommonDoorsOption = {
-    name: 'Vpad Opacity', // mariomaster was here again
-    description: 'Changes Vpad Opacity -yeah ',
+var option:CommonDoorsOption = {
+    name: 'vpadOpacity', // mariomaster was here again
+    description: 'vpadOpacity',
     variable: 'padalpha',
     type: DoorsOptionType.PERCENT,
     scrollSpeed: 1.6,
@@ -54,8 +55,8 @@ class AndroidSettingsSubState extends BaseOptionsMenu
 addOption(option);
 
 var option:CommonDoorsOption = {
-    name: 'Hitbox Opacity', // mariomaster is dead :00000
-    description: 'Changes Hitbox opacity -what',
+    name: 'hitboxOpacity', // mariomaster is dead :00000
+    description: 'hitboxOpacity',
     variable: 'hitboxalpha',
     type: DoorsOptionType.PERCENT,
     scrollSpeed: 1.6,
