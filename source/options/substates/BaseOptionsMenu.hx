@@ -58,11 +58,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				//removeVirtualPad();
 				_parentState.openSubState(new online.GlasshatLogin());
 		}
-		#if desktop
-				close();
-				#else
-				FlxG.resetState();
-				#end
+		
+		close();
 	}
 
 	public function new(?isFirstOpen:Bool = false)
@@ -85,11 +82,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		bg.closeFunction = function()
 		{
 			ClientPrefs.saveSettings();
-			#if desktop
-				close();
-				#else
-				FlxG.resetState();
-				#end
+			close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 		add(bg);
@@ -179,11 +172,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if (controls.BACK)
 			{
 				ClientPrefs.saveSettings();
-				#if desktop
 				close();
-				#else
-				FlxG.resetState();
-				#end
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
 

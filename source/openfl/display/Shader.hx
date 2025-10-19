@@ -479,7 +479,7 @@ class Shader
 
 		if (__context != null && program == null)
 		{
-            var prefix = '#version 120\n';
+            var prefix = '#version 100\n';
 
 			var gl = __context.gl;
 

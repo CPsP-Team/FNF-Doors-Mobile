@@ -48,9 +48,9 @@ class Log
 					+ '.log',
 					message
 					+ '\n');
-
-				// Fixed by Enzo
 				openfl.system.System.setClipboard(message);
+
+				trace(message);
 
 				Lib.application.window.alert(message, 'Error!');
 

@@ -34,12 +34,10 @@ enum abstract FlxMobileInputID(Int) from Int to Int {
 	var hitboxDOWN = 18;
 	var hitboxLEFT = 19;
 	var hitboxRIGHT = 20;
-	var hitboxEXTRA1 = 21;
-	var noteUP = 22;
-	var noteDOWN = 23;
-	var noteLEFT = 24;
-	var noteRIGHT = 25;
-	var noteEXTRA1 = 26;
+	var noteUP = 21;
+	var noteDOWN = 22;
+	var noteLEFT = 23;
+	var noteRIGHT = 24;
 
 	@:from
 	public static inline function fromString(s:String) {

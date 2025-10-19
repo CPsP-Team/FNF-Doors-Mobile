@@ -78,8 +78,8 @@ class MobileControlsSubState extends FlxSubState
 		add(resetButton);
 
 		funitext = new FlxText(0, 0, 0, 'No Android Controls!', 32);
-		funitext.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK,
-			true);
+		funitext.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf')
+			.fontName, 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
 		funitext.borderSize = 3;
 		funitext.borderQuality = 1;
 		funitext.screenCenter();
@@ -128,8 +128,8 @@ class MobileControlsSubState extends FlxSubState
 		add(downPosition);
 
 		upPosition = new FlxText(10, FlxG.height - 84, 0, '', 16);
-		upPosition.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK,
-			true);
+		upPosition.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf')
+			.fontName, 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
 		upPosition.borderSize = 3;
 		upPosition.borderQuality = 1;
 		add(upPosition);

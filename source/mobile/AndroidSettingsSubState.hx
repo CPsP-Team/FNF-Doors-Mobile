@@ -19,6 +19,7 @@ import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxSave;
+import objects.ui.DoorsOption.DoorsOptionType;
 import haxe.Json;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -26,10 +27,9 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
-import objects.ui.DoorsOption.CommonDoorsOption;
-import objects.ui.DoorsOption.DoorsOptionType;
-import openfl.Lib;
 import options.substates.BaseOptionsMenu;
+import openfl.Lib;
+import objects.ui.DoorsOption.CommonDoorsOption;
 
 using StringTools;
 
@@ -41,31 +41,31 @@ class AndroidSettingsSubState extends BaseOptionsMenu
 		rpcTitle = 'Android Controls Settings Menu'; // hi, you can ask what is that, i will answer it's all what you needed lol.
 
 		var option:CommonDoorsOption = {
-			name: 'Vpad Opacity', // mariomaster was here again
-			description: 'Changes Vpad Opacity -yeah ',
-			variable: 'padalpha',
-			type: DoorsOptionType.BOOL,
-			scrollSpeed: 1.6,
-			minValue: 0.1, // prevent invisible vpad
-			maxValue: 1,
-			changeValue: 0.01,
-			decimals: 2
-		};
-		addOption(option);
+    name: 'Vpad Opacity', // mariomaster was here again
+    description: 'Changes Vpad Opacity -yeah ',
+    variable: 'padalpha',
+    type: DoorsOptionType.PERCENT,
+    scrollSpeed: 1.6,
+    minValue: 0.1, // prevent invisible vpad
+    maxValue: 1,
+    changeValue: 0.01,
+    decimals: 2
+};
+addOption(option);
 
-		var option:CommonDoorsOption = {
-			name: 'Hitbox Opacity', // mariomaster is dead :00000
-			description: 'Changes Hitbox opacity -what',
-			variable: 'hitboxalpha',
-			type: DoorsOptionType.BOOL,
-			scrollSpeed: 1.6,
-			minValue: 0.0,
-			maxValue: 1,
-			changeValue: 0.01,
-			decimals: 2
-		};
-		addOption(option);
-		
+var option:CommonDoorsOption = {
+    name: 'Hitbox Opacity', // mariomaster is dead :00000
+    description: 'Changes Hitbox opacity -what',
+    variable: 'hitboxalpha',
+    type: DoorsOptionType.PERCENT,
+    scrollSpeed: 1.6,
+    minValue: 0.0,
+    maxValue: 1,
+    changeValue: 0.01,
+    decimals: 2
+};
+addOption(option);
+
 		super();
 	}
 }
