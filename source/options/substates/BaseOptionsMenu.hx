@@ -10,7 +10,6 @@ import objects.ui.DoorsOption;
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
-import flixel.input.touch.FlxTouch;
 import flixel.FlxSprite;
 
 using StringTools;
@@ -107,9 +106,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		changeSelection();
 
 		#if mobile
-		addVirtualPad(UP_DOWN, NONE);
+		addVirtualPad(LEFT_FULL, X);
 		addVirtualPadCamera();
-		virtualPad.y -= 70;
+		virtualPad.y -= 80;
 		#end
 
 		if (isFirstOpen)
@@ -153,18 +152,18 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			if (controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end || downScroll)
 				changeSelection(1);
 
-			/*#if mobile
+			#if mobile
 			if (virtualPad.buttonX.justPressed)
 			{
 				removeVirtualPad();
 				openSubState(new mobile.MobileControlsSubState());
 			}
-			if (virtualPad.buttonY.justPressed)
+			/*if (virtualPad.buttonY.justPressed)
 			{
 				removeVirtualPad();
 				openSubState(new mobile.AndroidSettingsSubState());
-			}
-			#end*/
+			}*/
+			#end
 
 			if (controls.BACK)
 			{
