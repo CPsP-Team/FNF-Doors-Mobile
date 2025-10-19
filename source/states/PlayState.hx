@@ -48,6 +48,9 @@ import openfl.events.KeyboardEvent;
 import flixel.util.FlxSave;
 import AwardsManager;
 import StageData;
+#if mobile
+import mobile.MobileControls;
+#end
 import FunkinLua;
 import objects.ColorBar;
 import DoorsUtil;
@@ -1841,6 +1844,8 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+
+
 		if (isStoryMode)
 		{
 			if (ClientPrefs.data.downScroll)
@@ -1863,6 +1868,15 @@ class PlayState extends MusicBeatState
 
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
+
+		
+		#if mobile
+		if (MobileControls.mode != 'Keyboard')
+		{
+		    addMobileControls(false);	
+		    mobileControls.visible = false;
+		}
+		#end
 
 		if (!hasSpawnAnimation)
 		{
@@ -2389,6 +2403,13 @@ class PlayState extends MusicBeatState
 
 	public function startCountdown()
 	{
+		#if mobile
+		if (MobileControls.mode != 'Keyboard')
+		{
+            mobileControls.visible = true;
+		}
+        #end
+
 		if (startedCountdown)
 		{
 			return false;
@@ -5510,6 +5531,13 @@ class PlayState extends MusicBeatState
 
 	public function endSong()
 	{
+		#if mobile
+		if (MobileControls.mode != 'Keyboard')
+		{
+            mobileControls.visible = false;
+		}
+        #end
+
 		// Should kill you if you tried to cheat
 		if (!startingSong)
 		{

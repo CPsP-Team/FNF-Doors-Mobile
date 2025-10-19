@@ -328,6 +328,10 @@ class CreditsState extends MusicBeatState
 		calluAmbience.play();
         FlxG.sound.list.add(calluAmbience);
 
+		  #if mobile
+		addVirtualPad(LEFT_RIGHT, B);
+		#end
+
 		super.create();
 	}
 

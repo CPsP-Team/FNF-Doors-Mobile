@@ -164,6 +164,10 @@ class GalleryState extends MusicBeatState
 		descText.antialiasing = ClientPrefs.globalAntialiasing;
 		descBox.sprTracker = descText;
 		add(descText);
+
+		  #if mobile
+		addVirtualPad(LEFT_RIGHT, B);
+		#end
 	}
 
 	private function setupOverlays():Void

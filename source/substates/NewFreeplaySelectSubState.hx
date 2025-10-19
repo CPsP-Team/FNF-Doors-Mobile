@@ -144,6 +144,10 @@ class NewFreeplaySelectSubState extends MusicBeatSubstate
 
 		startGaming();
 		changeSelection(0);
+
+	    #if mobile
+		addVirtualPad(LEFT_FULL, A_B);
+		#end
 	}
 
 	function getMetadatasForCategory()

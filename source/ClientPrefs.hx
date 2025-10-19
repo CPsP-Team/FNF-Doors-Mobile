@@ -12,7 +12,7 @@ import flixel.input.keyboard.FlxKey;
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
-	public var controllerMode:Bool = false;
+	public var controllerMode:Bool = true;
 
 	public var showFPS:Bool = true;
 	public var flashing:Bool = true;
