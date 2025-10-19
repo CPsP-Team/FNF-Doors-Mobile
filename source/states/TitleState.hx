@@ -344,8 +344,20 @@ class TitleState extends MusicBeatState
 		// Handle camera movement with mouse
 		updateCameraPosition(elapsed);
 		
+		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
+
+		#if mobile
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed)
+			{
+				pressedEnter = true;
+			}
+		}
+		#end
+
 		// Check for enter key press
-		if (initialized && (FlxG.keys.justPressed.ENTER || controls.ACCEPT))
+		if (initialized && pressedEnter)
 		{
 			exitState();
 			pressedExitState = true;

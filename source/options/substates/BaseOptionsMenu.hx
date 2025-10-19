@@ -82,11 +82,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 		add(bg);
 
-		#if desktop
 		if (title == null)
 			title = 'Options';
 		if (rpcTitle == null)
 			rpcTitle = 'Options Menu';
+
+		#if desktop
 		DiscordClient.changePresence(rpcTitle, null);
 		#end
 
@@ -105,6 +106,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		makeButtons(hideGlasshat);
 		changeSelection();
 
+		#if mobile
+		addVirtualPad(UP_DOWN, NONE);
+		addVirtualPadCamera();
+		virtualPad.y -= 70;
+		#end
 
 		if (isFirstOpen)
 		{
@@ -123,73 +129,61 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var canUpdate:Bool = true;
 
 	override function update(elapsed:Float)
-{
-    canUpdate = true;
-    if (internalTitle == "controls")
-    {
-        grpOptions.forEach(function(cnt)
-        {
-            @:privateAccess if (cnt.optionType != CONTROLTITLE)
-            {
-                if (cnt.binding)
-                    canUpdate = false;
-            }
-        });
-    }
+	{
+		canUpdate = true;
+		if (internalTitle == "controls")
+		{
+			grpOptions.forEach(function(cnt)
+			{
+				@:privateAccess if (cnt.optionType != CONTROLTITLE)
+				{
+					if (cnt.binding)
+						canUpdate = false;
+				}
+			});
+		}
 
-    if (canUpdate)
-    {
-        var upScroll:Bool = false;
-        var downScroll:Bool = false;
+		if (canUpdate)
+		{
+			var upScroll = FlxG.mouse.wheel > 0;
+			var downScroll = FlxG.mouse.wheel < 0;
+		    
+			if (controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end || upScroll)
+				changeSelection(-1);
+			if (controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end || downScroll)
+				changeSelection(1);
 
-        #if mobile
-        var lastTouchY:Float = 0;
-        var dragging:Bool = false;
+			/*#if mobile
+			if (virtualPad.buttonX.justPressed)
+			{
+				removeVirtualPad();
+				openSubState(new mobile.MobileControlsSubState());
+			}
+			if (virtualPad.buttonY.justPressed)
+			{
+				removeVirtualPad();
+				openSubState(new mobile.AndroidSettingsSubState());
+			}
+			#end*/
 
-        var touch = FlxG.touches.getFirst();
-        if (touch != null) {
-            if (touch.justPressed) {
-                dragging = true;
-                lastTouchY = touch.screenY;
-            } else if (touch.pressed && dragging) {
-                var dy = touch.screenY - lastTouchY;
+			if (controls.BACK)
+			{
+				ClientPrefs.saveSettings();
+				close();
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+			}
 
-                upScroll = dy > 0;
-                downScroll = dy < 0;
+			var rect = FlxRect.get(0, 0, 1232, 539);
+			for (i => o in grpOptions.members)
+			{
+				o.y = FlxMath.lerp(o.y, yLerpTargets[i] + grpOptions.y, CoolUtil.boundTo(elapsed * 12, 0, 1));
+				o.clipRect = CoolUtil.calcRectByGlobal(o, FlxRect.get(24, 92, 1232, 539));
+			}
+			rect.put();
+		}
 
-                lastTouchY = touch.screenY;
-            } else if (touch.justReleased) {
-                dragging = false;
-            }
-        }
-        #else
-        upScroll = FlxG.mouse.wheel > 0;
-        downScroll = FlxG.mouse.wheel < 0;
-        #end
-
-        if (controls.UI_UP_P || upScroll)
-            changeSelection(-1);
-        if (controls.UI_DOWN_P || downScroll)
-            changeSelection(1);
-
-        if (controls.BACK)
-        {
-            ClientPrefs.saveSettings();
-            close();
-            FlxG.sound.play(Paths.sound('cancelMenu'));
-        }
-
-        var rect = FlxRect.get(0, 0, 1232, 539);
-        for (i => o in grpOptions.members)
-        {
-            o.y = FlxMath.lerp(o.y, yLerpTargets[i] + grpOptions.y, CoolUtil.boundTo(elapsed * 12, 0, 1));
-            o.clipRect = CoolUtil.calcRectByGlobal(o, FlxRect.get(24, 92, 1232, 539));
-        }
-        rect.put();
-    }
-
-    super.update(elapsed);
-}
+		super.update(elapsed);
+	}
 
 	function changeSelection(change:Int = 0)
 	{
