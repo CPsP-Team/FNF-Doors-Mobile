@@ -109,7 +109,7 @@ class FlxAnimateFrames extends FlxAtlasFrames
             var spritemaps:Array<{image:BitmapData, json:AnimateAtlas}> = [];
             for (text in texts)
             {
-                #if sys
+                #if !mobile
                 var txt = sys.io.File.getContent(text);
                 #else
                 var txt = Assets.getText(text);
@@ -118,7 +118,7 @@ class FlxAnimateFrames extends FlxAtlasFrames
                     txt = txt.substring(1);
                 var json:AnimateAtlas = haxe.Json.parse(txt);
 
-                #if sys
+                #if !mobile
                 spritemaps.push({image: BitmapData.fromFile('$Path/${json.meta.image}'), json: json});
                 #else
                 spritemaps.push({image: Assets.getBitmapData('$Path/${json.meta.image}'), json: json});
