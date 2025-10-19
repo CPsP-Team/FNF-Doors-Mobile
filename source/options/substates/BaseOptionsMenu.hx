@@ -109,7 +109,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		#if mobile
 		addVirtualPad(UP_DOWN, NONE);
 		addVirtualPadCamera();
-		virtualPad.y -= 40;
+		virtualPad.y -= 70;
 		#end
 
 		if (isFirstOpen)
@@ -148,9 +148,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			var upScroll = FlxG.mouse.wheel > 0;
 			var downScroll = FlxG.mouse.wheel < 0;
 		    
-			if (controls.UI_UP_P || upScroll)
+			if (controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end || upScroll)
 				changeSelection(-1);
-			if (controls.UI_DOWN_P || downScroll)
+			if (controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end || downScroll)
 				changeSelection(1);
 
 			/*#if mobile
