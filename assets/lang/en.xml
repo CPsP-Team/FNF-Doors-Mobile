@@ -256,6 +256,10 @@
             <hitsound name= "Hitsound Volume" desc="Funny notes does &quot;Tick&quot; when you hit them."/>
             <ratingoffset name= "Rating Offset" desc="Changes how late/early you have to hit for a &quot;Sick&quot;Higher values mean you have to hit later."/>
         </gameplay>
+        <androidControls>
+            <vpadOpacity name= "Vpad Opacity" desc="Changes Vpad Opacity -yeah "/>
+            <hitboxOpacity name= "Hitbox Opacity" desc="Changes Hitbox opacity -what"/>
+        </androidControls>
         <controls>
             <default value="Reset to Default Keys"/>
             <notes>
