@@ -160,7 +160,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
                    dragging = false;
                 }
               }
-	     	}
 			#else
 			var upScroll = FlxG.mouse.wheel > 0;
 			var downScroll = FlxG.mouse.wheel < 0;
