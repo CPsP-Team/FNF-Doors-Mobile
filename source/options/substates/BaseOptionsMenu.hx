@@ -106,6 +106,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		makeButtons(hideGlasshat);
 		changeSelection();
 
+		#if mobile
+		addVirtualPad(UP_DOWN, NONE);
+		addVirtualPadCamera();
+		virtualPad.y -= 40;
+		#end
 
 		if (isFirstOpen)
 		{
@@ -140,33 +145,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		if (canUpdate)
 		{
-			#if mobile
-			var upScroll = 0;
-			var downScroll = 0;
-			
-            var lastTouchY:Float = 0;
-            var dragging:Bool = false;
-
-			var touch = FlxG.touches.getFirst();
-             if (touch != null) {
-               if (touch.justPressed) {
-                  dragging = true;
-                  lastTouchY = touch.screenY;
-                } else if (touch.pressed && dragging) {
-                  var dy = touch.screenY - lastTouchY;
-
-				  upScroll = dy > 0;
-			      downScroll = dy < 0;
-
-                  lastTouchY = touch.screenY;
-                } else if (touch.justReleased) {
-                   dragging = false;
-                }
-              }
-			#else
 			var upScroll = FlxG.mouse.wheel > 0;
 			var downScroll = FlxG.mouse.wheel < 0;
-		    #end
+		    
 			if (controls.UI_UP_P || upScroll)
 				changeSelection(-1);
 			if (controls.UI_DOWN_P || downScroll)
