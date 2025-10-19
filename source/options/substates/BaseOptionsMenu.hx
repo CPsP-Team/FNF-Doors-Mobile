@@ -10,6 +10,7 @@ import objects.ui.DoorsOption;
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
+import flixel.input.touch.FlxTouch;
 import flixel.FlxSprite;
 
 using StringTools;
@@ -40,22 +41,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		switch (label)
 		{
 			case 'language':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.LanguageSubState());
 			case 'controls':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.NewControlsSubState());
 			case 'graphics':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.GraphicsSettingsSubState());
 			case 'visuals':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.VisualsUISubState());
 			case 'gameplay':
-				//removeVirtualPad();
 				_parentState.openSubState(new options.substates.GameplaySettingsSubState());
 			case 'glasshat':
-				//removeVirtualPad();
 				_parentState.openSubState(new online.GlasshatLogin());
 		}
 		
@@ -111,10 +106,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		makeButtons(hideGlasshat);
 		changeSelection();
 
-		#if mobile
-		addVirtualPad(LEFT_FULL, A_B_X_Y);
-		addVirtualPadCamera();
-		#end
 
 		if (isFirstOpen)
 		{
@@ -149,14 +140,37 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		if (canUpdate)
 		{
+			#if mobile
+            var lastTouchY:Float = 0;
+            var dragging:Bool = false;
+
+			var touch = FlxG.touches.getFirst();
+             if (touch != null) {
+               if (touch.justPressed) {
+                  dragging = true;
+                  lastTouchY = touch.screenY;
+                } else if (touch.pressed && dragging) {
+                  var dy = touch.screenY - lastTouchY;
+
+				  var upScroll = dy > 0;
+			      var downScroll = dy < 0;
+
+                  lastTouchY = touch.screenY;
+                } else if (touch.justReleased) {
+                   dragging = false;
+                }
+              }
+	     	}
+			#else
 			var upScroll = FlxG.mouse.wheel > 0;
 			var downScroll = FlxG.mouse.wheel < 0;
+		    #end
 			if (controls.UI_UP_P || upScroll)
 				changeSelection(-1);
 			if (controls.UI_DOWN_P || downScroll)
 				changeSelection(1);
 
-			#if mobile
+			/*#if mobile
 			if (virtualPad.buttonX.justPressed)
 			{
 				removeVirtualPad();
@@ -167,7 +181,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				removeVirtualPad();
 				openSubState(new mobile.AndroidSettingsSubState());
 			}
-			#end
+			#end*/
 
 			if (controls.BACK)
 			{
