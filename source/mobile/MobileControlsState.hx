@@ -15,11 +15,11 @@ import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxVirtualPad;
 import openfl.utils.Assets;
 
-class MobileControlsSubState extends FlxSubState
+class MobileControlsState extends MusicBeatState
 {
 	private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
 
-	private var virtualPad:FlxVirtualPad;
+//	private var virtualPad:FlxVirtualPad;
 	private var hitbox:FlxHitbox;
 	private var upPosition:FlxText;
 	private var downPosition:FlxText;
@@ -54,7 +54,7 @@ class MobileControlsSubState extends FlxSubState
 				MobileControls.customVirtualPad = virtualPad;
 
 			FlxTransitionableState.skipNextTransOut = true;
-			FlxG.resetState();
+			MusicBeatState.switchState(new options.substates.BaseOptionsMenu());
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
