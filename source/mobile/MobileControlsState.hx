@@ -54,7 +54,7 @@ class MobileControlsState extends MusicBeatState
 				MobileControls.customVirtualPad = virtualPad;
 
 			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new options.substates.BaseOptionsMenu());
+			MusicBeatState.switchState(new states.MainMenuState());
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
