@@ -3,6 +3,8 @@ package objects.ui;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRect;
 
+import mobile.flixel.FlxVirtualPad;
+
 typedef Keybind = {
     keyboard:String,
     gamepad:String
@@ -47,6 +49,9 @@ class DoorsOption extends FlxSpriteGroup {
     static inline final DEFAULT_DECIMALS:Int = 1;
     static inline final DEFAULT_FORMAT:String = '%v';
     static inline final HOLD_THRESHOLD:Float = 0.5;
+
+    // Mobile (get out of here console)
+    public var virtualPad:FlxVirtualPad;
     
     // Core option properties
     var optionType:DoorsOptionType = DoorsOptionType.STRING;
