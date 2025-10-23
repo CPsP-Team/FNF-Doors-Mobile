@@ -1014,6 +1014,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+
 		DoorsUtil.loadRunData();
 		if (!isStoryMode)
 		{

@@ -83,7 +83,7 @@ class ModchartFile
             #end
             
             //trace(filePath);
-            #if sys
+            #if !mobile
             if(FileSystem.exists(filePath))
                 rawJson = File.getContent(filePath).trim();
             else #end //should become else if i think???
@@ -95,24 +95,24 @@ class ModchartFile
         if (rawJson != null)
         {
             json = cast Json.parse(rawJson);
-            //trace('loaded json');
+            trace('loaded json');
             trace(folderShit);
             #if sys
-            if (FileSystem.isDirectory(folderShit))
-            {
-                //trace("folder le exists");
-                for (file in FileSystem.readDirectory(folderShit))
+    //        if (FileSystem.isDirectory(folderShit))
+    //        {
+                trace("folder le exists");
+                for (file in openfl.utils.Assets.list().filter(path -> path.contains(folderShit)))
                 {
-                    //trace(file);
+                    trace(file);
                     if(file.endsWith('.hx')) //custom mods!!!!
                     {
-                        var scriptStr = File.getContent(folderShit + file);
+                        var scriptStr = Assets.getText(folderShit + file);
                         var script = new CustomModifierScript(scriptStr);
                         customModifiers.set(file.replace(".hx", ""), script);
                         //trace('loaded custom mod: ' + file);
                     }
                 }
-            }
+   //         }
             #end
         }
         else 

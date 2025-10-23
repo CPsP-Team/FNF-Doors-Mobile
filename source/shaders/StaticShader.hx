@@ -31,8 +31,6 @@ class StaticShaderGLSL extends FlxShader{
     @:glFragmentSource('
         #pragma header
         uniform float iTime;
-        vec2 uv = openfl_TextureCoordv.xy;
-        const float PHI = 1.61803398874989484820459;
         uniform float alpha;
       
         float gold_noise(in vec2 xy, in float seed)
@@ -42,6 +40,8 @@ class StaticShaderGLSL extends FlxShader{
       
         void main()
         {
+            vec2 uv = openfl_TextureCoordv.xy;
+            const float PHI = 1.61803398874989484820459;
             float seed  = fract(iTime);
             gl_FragColor= vec4 (gold_noise(uv, seed+0.1),
                                 gold_noise(uv, seed+0.2),

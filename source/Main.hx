@@ -15,8 +15,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import gamejolt.*;
-
-//crash handler stuff
+// crash handler stuff
 #if CRASH_HANDLER
 import lime.app.Application;
 import openfl.events.UncaughtErrorEvent;
@@ -27,20 +26,19 @@ import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
-
 #if ALLOW_MULTITHREADING
 import sys.thread.Thread;
 #end
 
 using StringTools;
 
+#if windows
 @:buildXml('
 <target id="haxe">
 	<lib name="wininet.lib" if="windows" />
 	<lib name="dwmapi.lib" if="windows" />
 </target>
 ')
-#if windows
 @:cppFileCode('
 #include <windows.h>
 #include <winuser.h>
@@ -59,6 +57,7 @@ class Main extends Sprite
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
+
 	public static var fpsVar:FPSCounter;
 
 	public static var noTerminalColor:Bool = false;
@@ -68,6 +67,7 @@ class Main extends Sprite
 	#if ALLOW_MULTITHREADING
 	public static var gameThreads:Array<Thread> = [];
 	#end
+
 	public static function main():Void
 	{
 		// We need to make the crash handler LITERALLY FIRST so nothing EVER gets past it.
@@ -75,26 +75,27 @@ class Main extends Sprite
 		CrashHandler.queryStatus();
 
 		AudioSwitchFix.init();
-		
+
 		#if windows
 		CppAPI.darkMode();
-     	#end
+		#end
 
 		Lib.current.addChild(new Main());
 	}
 
 	public function new()
 	{
-		// DPI Scaling fix for windows 
+		// DPI Scaling fix for windows
 		// this shouldn't be needed for other systems
 		// Credit to YoshiCrafter29 for finding this function
 		#if windows
 		untyped __cpp__("SetProcessDPIAware();");
 		#end
-		
+
 		#if !mobile
 		var display = lime.system.System.getDisplay(0);
-		if (display != null) {
+		if (display != null)
+		{
 			var dpiScale:Float = display.dpi / 96;
 			Application.current.window.width = Std.int(gameWidth * dpiScale);
 			Application.current.window.height = Std.int(gameHeight * dpiScale);
@@ -117,7 +118,9 @@ class Main extends Sprite
 	}
 
 	private static var __threadCycle:Int = 0;
-	public static function execAsync(func:Void->Void) {
+
+	public static function execAsync(func:Void->Void)
+	{
 		#if ALLOW_MULTITHREADING
 		var thread = gameThreads[(__threadCycle++) % gameThreads.length];
 		thread.events.run(func);
@@ -132,10 +135,9 @@ class Main extends Sprite
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
-
 		setupGame();
 	}
-	
+
 	public static var popupManager:PopupManager;
 
 	private function setupGame():Void
@@ -146,29 +148,31 @@ class Main extends Sprite
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") 1, #end framerate, framerate, skipSplash, startFullscreen));
 
 		#if ALLOW_MULTITHREADING
-		for(i in 0...4)
-			gameThreads.push(Thread.createWithEventLoop(function() {Thread.current().events.promise();}));
+		for (i in 0...4)
+			gameThreads.push(Thread.createWithEventLoop(function()
+			{
+				Thread.current().events.promise();
+			}));
 		#end
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
+		if (fpsVar != null)
+		{
 			fpsVar.visible = ClientPrefs.data.showFPS;
 		}
 
 		DoorsVideoSprite.init();
 		MenuSongManager.init();
-		
+
 		FlxG.signals.gameResized.add(fixCameraShaders);
-		
+
 		popupManager = new PopupManager();
 		addChild(popupManager);
 	}
-
-	
-	public static function fixCameraShaders(w:Int, h:Int) //fixes shaders after resizing the window / fullscreening
+	public static function fixCameraShaders(w:Int, h:Int) // fixes shaders after resizing the window / fullscreening
 	{
 		if (FlxG.cameras.list.length > 0)
 		{
@@ -176,7 +180,7 @@ class Main extends Sprite
 			{
 				if (cam.flashSprite != null)
 				{
-					@:privateAccess 
+					@:privateAccess
 					{
 						cam.flashSprite.__cacheBitmap = null;
 						cam.flashSprite.__cacheBitmapData = null;

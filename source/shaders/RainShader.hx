@@ -14,7 +14,7 @@ typedef Light =
 }
 
 class RainShader extends PostEffectShader
-{
+{ 
   
   @:glFragmentSource('
 #pragma header

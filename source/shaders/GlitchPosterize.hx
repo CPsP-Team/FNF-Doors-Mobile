@@ -33,7 +33,7 @@ class GlitchPosterizeGLSL extends FlxShader{
         #pragma header
         
         uniform float iTime;
-        uniform float GlitchAmount = 0.6;
+        uniform float GlitchAmount;
 
         vec4 posterize(vec4 color, float numColors)
         {
@@ -73,5 +73,6 @@ class GlitchPosterizeGLSL extends FlxShader{
 
     public function new(){
         super();
+        GlitchAmount.value = [0.6];
     }
 }

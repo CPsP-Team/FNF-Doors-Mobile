@@ -2,7 +2,7 @@ package objects.ui;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRect;
-
+import mobile.flixel.FlxVirtualPad;
 typedef Keybind = {
     keyboard:String,
     gamepad:String
@@ -53,6 +53,7 @@ class DoorsOption extends FlxSpriteGroup {
     var name:String;
     var description:String;
     var category:String = "";
+    var virtualPad:FlxVirtualPad = null;
     var variable:String = null;
     public var defaultValue:Dynamic = null;
     public var onChange:Void->Void = null;
@@ -371,22 +372,22 @@ class DoorsOption extends FlxSpriteGroup {
     
     private function checkLeftInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_LEFT);
+               (isSelected && Controls.instance.UI_LEFT #if mobile || virtualPad != null && virtualPad.buttonLeft.pressed #end);
     }
     
     private function checkRightInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_RIGHT);
+               (isSelected && Controls.instance.UI_RIGHT #if mobile || virtualPad != null && virtualPad.buttonRight.pressed #end);
     }
     
     private function checkLeftPressedInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_LEFT_P);
+               (isSelected && Controls.instance.UI_LEFT_P #if mobile || virtualPad != null && virtualPad.buttonLeft.justPressed #end);
     }
     
     private function checkRightPressedInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_RIGHT_P);
+               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || virtualPad != null && virtualPad.buttonRight.justPressed #end);
     }
 
     private function handlePressedInput(left:Bool, right:Bool) {
