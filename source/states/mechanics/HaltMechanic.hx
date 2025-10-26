@@ -177,7 +177,7 @@ class HaltMechanic extends MechanicsManager
 			storyDifficulty == 1 ? 0.05 :
 			storyDifficulty == 2 ? 0.02 : 0;
 			
-		if (FlxG.keys.pressed.SPACE || MusicBeatState.instance.mobileControls.buttonAction.justPressed && (game.health >= minHealthForDrain || storyDifficulty == 3)) {
+		if (FlxG.keys.pressed.SPACE || PlayState.instance.mobileControls.hitbox.buttonAction.justPressed && (game.health >= minHealthForDrain || storyDifficulty == 3)) {
 			game.health -= healthDrainAmount * elapsed;
 		}
 		
