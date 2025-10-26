@@ -73,6 +73,5 @@ class GlitchPosterizeGLSL extends FlxShader{
 
     public function new(){
         super();
-        GlitchAmount.value = [0.6];
     }
 }

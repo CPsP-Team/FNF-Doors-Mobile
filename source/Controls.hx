@@ -42,8 +42,8 @@ class Controls
 	private function get_NOTE_DOWN_P() return justPressed('note_down');
 	private function get_NOTE_LEFT_P() return justPressed('note_left');
 	private function get_NOTE_RIGHT_P() return justPressed('note_right');
-	private function get_HEARTBEAT_LEFT_P() return justPressed('heartbeat_left');
-	private function get_HEARTBEAT_RIGHT_P() return justPressed('heartbeat_right');
+	private function get_HEARTBEAT_LEFT_P() return justPressed('note_left');
+	private function get_HEARTBEAT_RIGHT_P() return justPressed('note_right');
 
 	// Held buttons (directions)
 	public var UI_UP(get, never):Bool;

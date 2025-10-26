@@ -52,8 +52,20 @@ class MechanicPosterSubstate extends FlxSubState{
     
     override function update(elapsed){
 
+        var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
+
+		#if mobile
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed)
+			{
+				pressedEnter = true;
+			}
+		}
+		#end
+
         if(!isOff && canYouRemove){
-            if(FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE){
+            if(pressedEnter){ // supports desktop and mobile
                 FlxG.sound.play(Paths.sound("lock"));
                 removeCurPoster();
             }
