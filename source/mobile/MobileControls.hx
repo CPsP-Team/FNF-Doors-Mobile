@@ -20,7 +20,7 @@ class MobileControls extends FlxTypedSpriteGroup<FlxMobileInputManager>
 	// YOU CAN'T CHANGE PROPERTIES USING THIS EXCEPT WHEN IN RUNTIME!!
 	public var current:CurrentManager;
 
-	public function new()
+	public function new(hitboxSpace:Bool = false)
 	{
 		super();
 
@@ -39,7 +39,7 @@ class MobileControls extends FlxTypedSpriteGroup<FlxMobileInputManager>
 				virtualPad = new FlxVirtualPad(BOTH_FULL, NONE);
 				add(virtualPad);
 			case 'Hitbox':
-				hitbox = new FlxHitbox();
+				hitbox = new FlxHitbox(hitboxSpace);
 				add(hitbox);
 			case 'Keyboard': // do nothing
 		}
