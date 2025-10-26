@@ -76,7 +76,7 @@ class HaltChromaticAberrationGLSL extends FlxShader{
         }
         
         void mainImage() {
-            vec2 uv = openfl_TextureCoordv.xy;
+             vec2 uv = openfl_TextureCoordv.xy;
             float theAlpha = flixel_texture2D(bitmap,uv).a;
             
             float red = texture(iChannel0, computeUV(uv, k + offset, kcube)).r; 

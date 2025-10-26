@@ -130,7 +130,7 @@ class Screech extends BaseSMMechanic {
 	}
 	
 	private function handleCanDodgeState() {
-		if (FlxG.keys.justPressed.SPACE || mobileControls.buttonSpace.justPressed) {
+		if (FlxG.keys.justPressed.SPACE || PlayState.instance.mobileControls.hitbox.buttonAction.justPressed) {
 			currentState = Dodged;
 			screechLeave.visible = true;
 			screechLeave.animation.play('stop', true, false, 6);
