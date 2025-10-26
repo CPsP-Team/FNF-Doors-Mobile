@@ -22,6 +22,7 @@ class FlxHitbox extends FlxMobileInputManager
 	public var buttonDown:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxDOWN, FlxMobileInputID.noteDOWN]);
 	public var buttonUp:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxUP, FlxMobileInputID.noteUP]);
 	public var buttonRight:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]);
+	public var buttonSpace:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxSPACE]);
 
 	var AlphaThing:Float = 0.2;
 	var storedButtonsIDs:Map<String, Array<FlxMobileInputID>> = new Map<String, Array<FlxMobileInputID>>();
@@ -29,9 +30,11 @@ class FlxHitbox extends FlxMobileInputManager
 	/**
 	 * Create the zone.
 	 */
-	public function new():Void
+	public function new(activateSpaceButton:Bool = false):Void
 	{
 		super();
+
+		var hitboxY:Int = activateSpaceButton ? Std.int(FlxG.height / 4) : 0;
 
 		AlphaThing = ClientPrefs.data.hitboxalpha;
 		for (button in Reflect.fields(this))
@@ -40,10 +43,13 @@ class FlxHitbox extends FlxMobileInputManager
 				storedButtonsIDs.set(button, Reflect.getProperty(Reflect.field(this, button), 'IDs'));
 		}
 
-			add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF00FF));
-			add(buttonDown = createHint(FlxG.width / 4, 0, Std.int(FlxG.width / 4), FlxG.height, 0x00FFFF));
-			add(buttonUp = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 4), FlxG.height, 0x00FF00));
-			add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF0000));
+			add(buttonLeft = createHint(0, hitboxY, Std.int(FlxG.width / 4), FlxG.height, 0xFF00FF));
+			add(buttonDown = createHint(FlxG.width / 4, hitboxY, Std.int(FlxG.width / 4), FlxG.height, 0x00FFFF));
+			add(buttonUp = createHint(FlxG.width / 2, hitboxY, Std.int(FlxG.width / 4), FlxG.height, 0x00FF00));
+			add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), hitboxY, Std.int(FlxG.width / 4), FlxG.height, 0xFF0000));
+
+		    if (activateSpaceButton) add(buttonSpace = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height * 0.25), 0xFFFF00));
+		
 		for (button in Reflect.fields(this))
 		{
 			if (Std.isOfType(Reflect.field(this, button), FlxButton))
@@ -64,6 +70,7 @@ class FlxHitbox extends FlxMobileInputManager
 		buttonUp = FlxDestroyUtil.destroy(buttonUp);
 		buttonDown = FlxDestroyUtil.destroy(buttonDown);
 		buttonRight = FlxDestroyUtil.destroy(buttonRight);
+		buttonSpace = FlxDestroyUtil.destroy(buttonSpace);
 	}
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
