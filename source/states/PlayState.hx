@@ -1874,7 +1874,13 @@ class PlayState extends MusicBeatState
 		#if mobile
 		if (MobileControls.mode != 'Keyboard')
 		{
-			addMobileControls(false);
+		  switch (SONG.characters[2].toLowerCase())
+		   {
+			 case 'screech' | 'screech_shaded' | 'halt':
+		   	    addMobileControls(true);
+			 default:
+				addMobileControls(false);
+		   }
 			mobileControls.visible = false;
 			if (MobileControls.mode.toLowerCase() == 'hitbox')
 			{
