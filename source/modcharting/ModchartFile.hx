@@ -89,6 +89,7 @@ class ModchartFile
             else #end //should become else if i think???
                 if (Assets.exists(filePath))
                     rawJson = Assets.getText(filePath).trim();
+            trace('loaded modchart file in: ' + filePath);
                 
         }
         var json:ModchartJson = null;

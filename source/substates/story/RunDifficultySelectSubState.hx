@@ -88,7 +88,7 @@ class RunDifficultySelectSubState extends StoryModeSubState
 
 		#if mobile
 		addVirtualPad(NONE, A_B);
-		addVirtualPadCamera(false)
+		addVirtualPadCamera(false);
 		#end
 
 		startGaming();

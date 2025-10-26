@@ -167,6 +167,10 @@ class PlayState extends MusicBeatState
 
 	private var strumLine:FlxSprite;
 
+	#if mobile
+	private var mobileKeysHeld:Array<Bool> = [false, false, false, false]; // apenas para fixar as notas de segurar ass: vilgax do ben 10
+	#end
+
 	// Handles the new epic mega sexy cam code that i've done
 	public var camFollow:FlxPoint;
 	public var camFollowPos:FlxObject;
@@ -1014,7 +1018,6 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-
 		DoorsUtil.loadRunData();
 		if (!isStoryMode)
 		{
@@ -1845,8 +1848,6 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-
-
 		if (isStoryMode)
 		{
 			if (ClientPrefs.data.downScroll)
@@ -1870,12 +1871,65 @@ class PlayState extends MusicBeatState
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
 
-		
 		#if mobile
 		if (MobileControls.mode != 'Keyboard')
 		{
-		    addMobileControls(false);	
-		    mobileControls.visible = false;
+			addMobileControls(false);
+			mobileControls.visible = false;
+			if (MobileControls.mode.toLowerCase() == 'hitbox')
+			{
+				mcontrolsKeys = [
+					mobileControls.hitbox.buttonLeft,
+					mobileControls.hitbox.buttonDown,
+					mobileControls.hitbox.buttonUp,
+					mobileControls.hitbox.buttonRight
+				];
+			}
+			else if (MobileControls.mode.toLowerCase().startsWith('pad'))
+			{
+				mcontrolsKeys = [
+					mobileControls.virtualPad.buttonLeft,
+					mobileControls.virtualPad.buttonDown,
+					mobileControls.virtualPad.buttonUp,
+					mobileControls.virtualPad.buttonRight
+				];
+			}
+			else
+				mcontrolsKeys = [];
+
+			/*  for (button in mcontrolsKeys)
+				{
+					button.onDown.callback = () -> {
+						keyPressed(getMControlsKeys(button));
+						if (MobileControls.mode.toLowerCase() == 'hitbox') button.alpha = ClientPrefs.data.hitboxalpha;
+					}
+					button.onUp.callback = () -> {
+						keyReleased(getMControlsKeys(button));
+						if (MobileControls.mode.toLowerCase() == 'hitbox') button.alpha = 0.001;
+					}
+					button.onOut.callback = button.onUp.callback;
+			}*/
+
+			for (button in mcontrolsKeys)
+			{
+				button.onDown.callback = () ->
+				{
+					var keyIndex = getMControlsKeys(button);
+					keyPressed(keyIndex);
+					mobileKeysHeld[keyIndex] = true;
+					if (MobileControls.mode.toLowerCase() == 'hitbox')
+						button.alpha = ClientPrefs.data.hitboxalpha;
+				}
+				button.onUp.callback = () ->
+				{
+					var keyIndex = getMControlsKeys(button);
+					keyReleased(keyIndex);
+					mobileKeysHeld[keyIndex] = false;
+					if (MobileControls.mode.toLowerCase() == 'hitbox')
+						button.alpha = 0.001;
+				}
+				button.onOut.callback = button.onUp.callback;
+			}
 		}
 		#end
 
@@ -2407,9 +2461,9 @@ class PlayState extends MusicBeatState
 		#if mobile
 		if (MobileControls.mode != 'Keyboard')
 		{
-            mobileControls.visible = true;
+			mobileControls.visible = true;
 		}
-        #end
+		#end
 
 		if (startedCountdown)
 		{
@@ -3552,7 +3606,7 @@ class PlayState extends MusicBeatState
 			{
 				vocals.loadEmbedded(Paths.voices(PlayState.SONG.song));
 			}
-//			trace("made vocals play");
+			//			trace("made vocals play");
 		}
 		else
 		{
@@ -5535,9 +5589,9 @@ class PlayState extends MusicBeatState
 		#if mobile
 		if (MobileControls.mode != 'Keyboard')
 		{
-            mobileControls.visible = false;
+			mobileControls.visible = false;
 		}
-        #end
+		#end
 
 		// Should kill you if you tried to cheat
 		if (!startingSong)
@@ -5956,6 +6010,15 @@ class PlayState extends MusicBeatState
 		});
 	}
 
+	#if mobile
+	var mcontrolsKeys:Array<mobile.flixel.FlxButton> = [];
+
+	private function getMControlsKeys(button:mobile.flixel.FlxButton):Int
+	{
+		return mcontrolsKeys.indexOf(button);
+	}
+	#end
+
 	private function onKeyPress(event:KeyboardEvent):Void
 	{
 		var eventKey:FlxKey = event.keyCode;
@@ -6083,9 +6146,20 @@ class PlayState extends MusicBeatState
 		var holdArray:Array<Bool> = [];
 		var pressArray:Array<Bool> = [];
 		var releaseArray:Array<Bool> = [];
-		for (key in keysArray)
+
+		for (i in 0...keysArray.length)
 		{
-			holdArray.push(controls.pressed(key));
+			var key = keysArray[i];
+			var isHeld:Bool = controls.pressed(key);
+
+			#if mobile
+			if (mcontrolsKeys.length > 0 && mobileKeysHeld[i])
+			{
+				isHeld = true;
+			}
+			#end
+
+			holdArray.push(isHeld);
 			pressArray.push(controls.justPressed(key));
 			releaseArray.push(controls.justReleased(key));
 		}
@@ -6103,7 +6177,6 @@ class PlayState extends MusicBeatState
 				for (n in notes)
 				{ // I can't do a filter here, that's kinda awesome
 					var canHit:Bool = (n != null && !strumsBlocked[n.noteData] && n.canBeHit && n.mustPress && !n.tooLate && !n.wasGoodHit && !n.blockHit);
-
 					if (guitarHeroSustains)
 						canHit = canHit && n.parent != null && n.parent.wasGoodHit;
 
@@ -6129,7 +6202,8 @@ class PlayState extends MusicBeatState
 	}
 
 	function noteMiss(daNote:Note):Void
-	{ // You didn't hit the key and let it go offscreen, also used by Hurt Notes
+	{ 
+		// You didn't hit the key and let it go offscreen, also used by Hurt Notes
 		// Dupe note remove
 		notes.forEachAlive(function(note:Note)
 		{

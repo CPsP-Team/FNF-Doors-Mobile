@@ -21,6 +21,7 @@ import backend.BaseStage;
 import mobile.MobileControls;
 import mobile.flixel.FlxVirtualPad;
 import flixel.util.FlxDestroyUtil;
+
 class MusicBeatState extends modcharting.ModchartMusicBeatState
 {
 	private var curSection:Int = 0;
@@ -31,6 +32,7 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
+
 	public var controls(get, never):Controls;
 	public var mouseCanClick:Bool = false;
 	public var changedMouseState:Bool = false;
@@ -42,8 +44,8 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 	inline function get_controls():Controls
 		return Controls.instance;
 
-public static var instance:MusicBeatState;
-	
+	public static var instance:MusicBeatState;
+
 	public var mobileControls:MobileControls;
 	public var virtualPad:FlxVirtualPad;
 
@@ -61,7 +63,6 @@ public static var instance:MusicBeatState;
 
 	public function removeVirtualPad()
 	{
-
 		if (virtualPad != null)
 			remove(virtualPad);
 	}
@@ -81,7 +82,6 @@ public static var instance:MusicBeatState;
 
 	public function removeMobileControls()
 	{
-
 		if (mobileControls != null)
 			remove(mobileControls);
 	}
@@ -99,7 +99,6 @@ public static var instance:MusicBeatState;
 
 	override function destroy()
 	{
-
 		super.destroy();
 
 		if (virtualPad != null)
@@ -114,13 +113,16 @@ public static var instance:MusicBeatState;
 			mobileControls = null;
 		}
 	}
-	override function create() {
+
+	override function create()
+	{
 		instance = this;
 		camBeat = FlxG.camera;
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		super.create();
 
-		if(!skip) {
+		if (!skip)
+		{
 			openSubState(new CustomFadeTransition(0.4, true));
 		}
 
@@ -133,10 +135,10 @@ public static var instance:MusicBeatState;
 	}
 
 	override public function onFocus():Void
-		{
-			super.onFocus();
-		}
-		
+	{
+		super.onFocus();
+	}
+
 	override function update(elapsed:Float)
 	{
 		var oldStep:Int = curStep;
@@ -146,10 +148,10 @@ public static var instance:MusicBeatState;
 
 		if (oldStep != curStep)
 		{
-			if(curStep > 0)
+			if (curStep > 0)
 				stepHit();
 
-			if(PlayState.SONG != null)
+			if (PlayState.SONG != null)
 			{
 				if (oldStep < curStep)
 					updateSection();
@@ -157,20 +159,23 @@ public static var instance:MusicBeatState;
 					rollbackSection();
 			}
 		}
-		
-		stagesFunc(function(stage:BaseStage) {
+
+		stagesFunc(function(stage:BaseStage)
+		{
 			stage.update(elapsed);
 		});
 
-		if(FlxG.save.data != null) FlxG.save.data.fullscreen = FlxG.fullscreen;
+		if (FlxG.save.data != null)
+			FlxG.save.data.fullscreen = FlxG.fullscreen;
 
 		super.update(elapsed);
 	}
 
 	private function updateSection():Void
 	{
-		if(stepsToDo < 1) stepsToDo = Math.round(getBeatsOnSection() * 4);
-		while(curStep >= stepsToDo)
+		if (stepsToDo < 1)
+			stepsToDo = Math.round(getBeatsOnSection() * 4);
+		while (curStep >= stepsToDo)
 		{
 			curSection++;
 			var beats:Float = getBeatsOnSection();
@@ -181,7 +186,8 @@ public static var instance:MusicBeatState;
 
 	private function rollbackSection():Void
 	{
-		if(curStep < 0) return;
+		if (curStep < 0)
+			return;
 
 		var lastSection:Int = curSection;
 		curSection = 0;
@@ -191,19 +197,21 @@ public static var instance:MusicBeatState;
 			if (PlayState.SONG.notes[i] != null)
 			{
 				stepsToDo += Math.round(getBeatsOnSection() * 4);
-				if(stepsToDo > curStep) break;
-				
+				if (stepsToDo > curStep)
+					break;
+
 				curSection++;
 			}
 		}
 
-		if(curSection > lastSection) sectionHit();
+		if (curSection > lastSection)
+			sectionHit();
 	}
 
 	private function updateBeat():Void
 	{
 		curBeat = Math.floor(curStep / 4);
-		curDecBeat = curDecStep/4;
+		curDecBeat = curDecStep / 4;
 	}
 
 	private function updateCurStep():Void
@@ -215,26 +223,31 @@ public static var instance:MusicBeatState;
 		curStep = lastChange.stepTime + Math.floor(shit);
 	}
 
-	public static function switchState(nextState:FlxState, ?shaky:Bool = false) {
+	public static function switchState(nextState:FlxState, ?shaky:Bool = false)
+	{
 		// Custom made Trans in
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;
-		if(!FlxTransitionableState.skipNextTransIn) {
+		if (!FlxTransitionableState.skipNextTransIn)
+		{
 			leState.openSubState(new CustomFadeTransition(0.4, false, shaky));
-			if(nextState == FlxG.state) {
+			if (nextState == FlxG.state)
+			{
 				CustomFadeTransition.finished = false;
-				CustomFadeTransition.finishCallback = function() {
+				CustomFadeTransition.finishCallback = function()
+				{
 					FlxG.resetState();
 					CustomFadeTransition.finished = true;
 				};
-				
-			} else {
+			}
+			else
+			{
 				CustomFadeTransition.finished = false;
-				CustomFadeTransition.finishCallback = function() {
+				CustomFadeTransition.finishCallback = function()
+				{
 					FlxG.switchState(nextState);
 					CustomFadeTransition.finished = true;
 				};
-				
 			}
 			return;
 		}
@@ -242,11 +255,13 @@ public static var instance:MusicBeatState;
 		FlxG.switchState(nextState);
 	}
 
-	public static function resetState() {
+	public static function resetState()
+	{
 		MusicBeatState.switchState(FlxG.state);
 	}
 
-	public static function getState():MusicBeatState {
+	public static function getState():MusicBeatState
+	{
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;
 		return leState;
@@ -256,20 +271,23 @@ public static var instance:MusicBeatState;
 	{
 		if (curStep % 4 == 0)
 			beatHit();
-		
-		stagesFunc(function(stage:BaseStage) {
+
+		stagesFunc(function(stage:BaseStage)
+		{
 			stage.curStep = curStep;
 			stage.curDecStep = curDecStep;
 			stage.stepHit();
 		});
 
-		entitiesFunc(function(entity:BaseSMMechanic) {
+		entitiesFunc(function(entity:BaseSMMechanic)
+		{
 			entity.curStep = curStep;
 			entity.curDecStep = curDecStep;
 			entity.stepHit(curStep);
 		});
 
-		roomsFunc(function(room:BaseSMRoom) {
+		roomsFunc(function(room:BaseSMRoom)
+		{
 			room.curStep = curStep;
 			room.curDecStep = curDecStep;
 			room.stepHit(curStep);
@@ -278,19 +296,22 @@ public static var instance:MusicBeatState;
 
 	public function beatHit():Void
 	{
-		stagesFunc(function(stage:BaseStage) {
+		stagesFunc(function(stage:BaseStage)
+		{
 			stage.curBeat = curBeat;
 			stage.curDecBeat = curDecBeat;
 			stage.beatHit();
 		});
 
-		entitiesFunc(function(entity:BaseSMMechanic) {
+		entitiesFunc(function(entity:BaseSMMechanic)
+		{
 			entity.curBeat = curBeat;
 			entity.curDecBeat = curDecBeat;
 			entity.beatHit(curBeat);
 		});
 
-		roomsFunc(function(room:BaseSMRoom) {
+		roomsFunc(function(room:BaseSMRoom)
+		{
 			room.curBeat = curBeat;
 			room.curDecBeat = curDecBeat;
 			room.beatHit(curBeat);
@@ -299,40 +320,45 @@ public static var instance:MusicBeatState;
 
 	public function sectionHit():Void
 	{
-		stagesFunc(function(stage:BaseStage) {
+		stagesFunc(function(stage:BaseStage)
+		{
 			stage.curSection = curSection;
 			stage.sectionHit();
 		});
 	}
-	
+
 	public var stages:Array<BaseStage> = [];
+
 	public function stagesFunc(func:BaseStage->Void)
-		{
-			for (stage in stages)
-				if(stage != null && stage.exists && stage.active)
-					func(stage);
-		}
-		
+	{
+		for (stage in stages)
+			if (stage != null && stage.exists && stage.active)
+				func(stage);
+	}
+
 	public var entities:Array<BaseSMMechanic> = [];
+
 	public function entitiesFunc(func:BaseSMMechanic->Void)
-		{
-			for (entity in entities)
-				if(entity != null && entity.exists && entity.active)
-					func(entity);
-		}
-		
+	{
+		for (entity in entities)
+			if (entity != null && entity.exists && entity.active)
+				func(entity);
+	}
+
 	public var rooms:Array<BaseSMRoom> = [];
+
 	public function roomsFunc(func:BaseSMRoom->Void)
-		{
-			for (room in rooms)
-				if(room != null && room.exists && room.active)
-					func(room);
-		}
+	{
+		for (room in rooms)
+			if (room != null && room.exists && room.active)
+				func(room);
+	}
 
 	function getBeatsOnSection()
 	{
 		var val:Null<Float> = 4;
-		if(PlayState.SONG != null && PlayState.SONG.notes[curSection] != null) val = PlayState.SONG.notes[curSection].sectionBeats;
+		if (PlayState.SONG != null && PlayState.SONG.notes[curSection] != null)
+			val = PlayState.SONG.notes[curSection].sectionBeats;
 		return val == null ? 4 : val;
 	}
 }

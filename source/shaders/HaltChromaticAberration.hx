@@ -46,9 +46,6 @@ class HaltChromaticAberration extends FlxBasic{
 class HaltChromaticAberrationGLSL extends FlxShader{
     @:glFragmentSource('
         #pragma header
-        vec2 uv = openfl_TextureCoordv.xy;
-        vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-        vec2 iResolution = openfl_TextureSize;
         uniform float iTime;
         #define iChannel0 bitmap
         #define texture flixel_texture2D
@@ -79,11 +76,14 @@ class HaltChromaticAberrationGLSL extends FlxShader{
         }
         
         void mainImage() {
+            vec2 uv = openfl_TextureCoordv.xy;
+       //   vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize; esses 2 n sao usados ass: Vilgax do ben 10
+       //   vec2 iResolution = openfl_TextureSize;
             float theAlpha = flixel_texture2D(bitmap,uv).a;
             
-            float red = texture( iChannel0, computeUV( uv, k + offset, kcube ) ).r; 
-            float green = texture( iChannel0, computeUV( uv, k, kcube ) ).g; 
-            float blue = texture( iChannel0, computeUV( uv, k - offset, kcube ) ).b; 
+            float red = texture(iChannel0, computeUV(uv, k + offset, kcube ) ).r; 
+            float green = texture(iChannel0, computeUV(uv, k, kcube ) ).g; 
+            float blue = texture(iChannel0, computeUV(uv, k - offset, kcube ) ).b; 
             
             
             fragColor = vec4(red, green,blue, theAlpha);

@@ -12,7 +12,7 @@ import openfl.display.BitmapData;
 import openfl.utils.Assets;
 import mobile.flixel.input.FlxMobileInputManager;
 import mobile.flixel.input.FlxMobileInputID;
-
+import states.PlayState;
 enum FlxDPadMode
 {
 	UP_DOWN;

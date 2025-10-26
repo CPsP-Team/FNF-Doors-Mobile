@@ -150,7 +150,7 @@ class Controls
 				|| virtualPadJustReleased(mobileBinds[key]) == true;
 		}
 	
-		public var controllerMode:Bool = false;
+		public var controllerMode:Bool = true;
 		private function _myGamepadJustPressed(keys:Array<FlxGamepadInputID>):Bool
 		{
 			if(keys != null)
