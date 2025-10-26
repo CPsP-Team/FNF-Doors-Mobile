@@ -45,7 +45,6 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 		return Controls.instance;
 
 	public static var instance:MusicBeatState;
-
 	public var mobileControls:MobileControls;
 	public var virtualPad:FlxVirtualPad;
 

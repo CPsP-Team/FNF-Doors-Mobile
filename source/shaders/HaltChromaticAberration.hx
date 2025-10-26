@@ -52,21 +52,21 @@ class HaltChromaticAberrationGLSL extends FlxShader{
         #define fragColor gl_FragColor
         #define mainImage main
         
-        uniform float k = 0.0;
-        uniform float kcube = 0.0;
+        uniform float k;
+        uniform float kcube;
         
-        uniform float offset = 0.0;
+        uniform float offset;
         
-        vec2 computeUV( vec2 uv, float k, float kcube ){
+        vec2 computeUV(vec2 uv, float k, float kcube){
             
             vec2 t = uv - .5;
             float r2 = t.x * t.x + t.y * t.y;
             float f = 0.;
             
-            if( kcube == 0.0){
+            if(kcube == 0.0){
                 f = 1. + r2 * k;
             }else{
-                f = 1. + r2 * ( k + kcube * sqrt( r2 ) );
+                f = 1. + r2 * (k + kcube * sqrt(r2));
             }
             
             vec2 nUv = f * t + .5;
@@ -77,14 +77,11 @@ class HaltChromaticAberrationGLSL extends FlxShader{
         
         void mainImage() {
             vec2 uv = openfl_TextureCoordv.xy;
-       //   vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize; esses 2 n sao usados ass: Vilgax do ben 10
-       //   vec2 iResolution = openfl_TextureSize;
             float theAlpha = flixel_texture2D(bitmap,uv).a;
             
-            float red = texture(iChannel0, computeUV(uv, k + offset, kcube ) ).r; 
-            float green = texture(iChannel0, computeUV(uv, k, kcube ) ).g; 
-            float blue = texture(iChannel0, computeUV(uv, k - offset, kcube ) ).b; 
-            
+            float red = texture(iChannel0, computeUV(uv, k + offset, kcube)).r; 
+            float green = texture(iChannel0, computeUV(uv, k, kcube)).g; 
+            float blue = texture(iChannel0, computeUV(uv, k - offset, kcube)).b; 
             
             fragColor = vec4(red, green,blue, theAlpha);
         }
