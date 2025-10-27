@@ -90,7 +90,7 @@
       "name": "openfl",
       "type": "git",
       "dir": null,
-      "ref": "dev",
+      "ref": "develop",
       "url": "https://github.com/CodenameCrew/cne-openfl"
     }
   ]
