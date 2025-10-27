@@ -160,12 +160,12 @@ class Main extends Sprite
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
+		#if mobile FlxG.stage.window.onResize.add((w:Int, h:Int) -> fpsVar.setScale()); #end
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		if (fpsVar != null)
 		{
 			fpsVar.visible = ClientPrefs.data.showFPS;
-			#if mobile FlxG.stage.window.onResize.add((w:Int, h:Int) -> fpsVar.setScale()); #end
 		}
 
 		DoorsVideoSprite.init();
