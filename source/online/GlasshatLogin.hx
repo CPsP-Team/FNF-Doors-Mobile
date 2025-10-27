@@ -244,8 +244,10 @@ class GlasshatLogin extends MusicBeatSubstate
 			buttonHandler = null;
 		}
 
-		if (FlxG.mouse.justReleased)
+		if (FlxG.mouse.justReleased) {
 			currentFocus = (hoveredSprite is IUIFocusable) ? (cast hoveredSprite) : null;
+			FlxG.stage.window.textInputEnabled = true;
+		}
 
 		FlxG.sound.keysAllowed = currentFocus != null ? !(currentFocus is UITextBox) : true;
 
