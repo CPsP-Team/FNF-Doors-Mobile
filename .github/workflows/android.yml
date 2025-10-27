@@ -21,6 +21,7 @@ jobs:
          haxelib install hmm --quiet
          haxelib run hmm setup
          haxelib run hmm install
+         haxelib run lime rebuild hxcpp
 
       - name: Configure Android
         run: |
@@ -31,7 +32,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
 
       - name: Compile
-        run: echo "y" | haxelib run lime build android
+        run: haxelib run lime build android
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
