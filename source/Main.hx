@@ -145,7 +145,7 @@ class Main extends Sprite
 		#if desktop
 		FlxG.stage.quality = BEST;
 		#end
-		
+
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") 1, #end framerate, framerate, skipSplash, startFullscreen));

@@ -58,7 +58,7 @@ class TitleState extends MusicBeatState
 	private static var hasCheckedUpdates:Bool = false;
 	
 	// Instance variables
-	private var report:Null<UpdateCheckCallback>;
+//	private var report:Null<UpdateCheckCallback>;
 	private var skippedIntro:Bool = false;
 	private var sickSteps:Int = 0; // Basically curStep but won't be skipped if you hold the tab or resize the screen
 	
@@ -86,14 +86,14 @@ class TitleState extends MusicBeatState
 		initializeBasics();
 		
 		// Check for updates
-		checkForUpdates();
+//		checkForUpdates();
 		
 		// Setup camera
 		setupCamera();
 		
 		// Check for update reports
-		report = hasCheckedUpdates ? null : backend.updating.UpdateUtil.checkForUpdates();
-		hasCheckedUpdates = true;
+	//	report = hasCheckedUpdates ? null : backend.updating.UpdateUtil.checkForUpdates();
+	//	hasCheckedUpdates = true;
 		
 		// Create and add all UI elements
 		createBackground();
@@ -146,7 +146,7 @@ class TitleState extends MusicBeatState
 		DoorsUtil.loadAllData();
 	}
 
-	private function checkForUpdates():Void 
+/*	private function checkForUpdates():Void 
 	{
 		if(!initialized && FlxG.save.data != null && FlxG.save.data.fullscreen)
 		{
@@ -160,7 +160,7 @@ class TitleState extends MusicBeatState
 		if(Paths.image("gravy", "preload") == null){
 			throw("You have deleted the gravy. Die.");
 		}
-	}
+	}*/
 
 	private function setupCamera():Void 
 	{
@@ -477,9 +477,9 @@ class TitleState extends MusicBeatState
 			skippedIntro = true;
 			
 			// Check for updates and show update screen if needed
-			if (report != null && report.newUpdate) {
+		/*	if (report != null && report.newUpdate) {
 				FlxG.switchState(new backend.updating.UpdateAvailableScreen(report));
-			}
+			}*/
 			closedState = true;
 		}
 	}

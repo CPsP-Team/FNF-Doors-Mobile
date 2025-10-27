@@ -102,7 +102,7 @@
 
 	<!-- Defines -->
 	<define name="GLASSHAT" if="final"/>
-	<define name="DISCORD"/>
+	<define name="DISCORD" if="desktop"/>
 	<define name="CRASH_HANDLER" if="desktop" />
 	<haxedef name="openfl-enable-handle-error" />
 	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" if="VIDEOS_ALLOWED" />
