@@ -88,10 +88,8 @@
     },
     {
       "name": "openfl",
-      "type": "git",
-      "dir": null,
-      "ref": "develop",
-      "url": "https://github.com/CodenameCrew/cne-openfl"
+      "type": "haxelib",
+      "version": "9.4.2"
     }
   ]
 }
