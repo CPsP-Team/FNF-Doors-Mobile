@@ -20,7 +20,7 @@ jobs:
         run: |
          haxelib install hmm --quiet
          haxelib run hmm setup
-         yes | haxelib run hmm install
+         haxelib run hmm install
 
       - name: Configure Android
         run: |
