@@ -52,9 +52,10 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 
 	public var vpadCam:FlxCamera;
 	public var camControls:FlxCamera;
+	public var camHeartControls:FlxCamera;
 
 	
-public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
+    public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
 	{
 		if (virtualPad != null)
 			removeVirtualPad();
