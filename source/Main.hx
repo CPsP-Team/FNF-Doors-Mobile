@@ -162,6 +162,7 @@ class Main extends Sprite
 		if (fpsVar != null)
 		{
 			fpsVar.visible = ClientPrefs.data.showFPS;
+			#if mobile FlxG.stage.window.onResize.add((w:Int, h:Int) -> fpsVar.setScale()); #end
 		}
 
 		DoorsVideoSprite.init();
