@@ -170,6 +170,8 @@
     <permission name="android.permission.INTERNET" />
 </android>
 
+    <window vsync="true" antialiasing="4" if="cpp" />
+
 	<!--Disable the Flixel core sound tray-->
 	<!--<haxedef name="FLX_NO_SOUND_TRAY" />-->
 
