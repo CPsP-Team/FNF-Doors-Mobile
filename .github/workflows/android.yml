@@ -32,11 +32,11 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
 
       - name: Compile
-        run: haxelib run lime build android
+        run: haxelib run lime build android -final
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: AndroidBuild
-          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          path: export/release/android/bin/app/build/outputs/apk/*
           if-no-files-found: error
