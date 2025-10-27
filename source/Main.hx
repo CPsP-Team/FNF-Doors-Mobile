@@ -105,6 +105,8 @@ class Main extends Sprite
 		}
 		#end
 
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+
 		super();
 
 		if (stage != null)
