@@ -66,9 +66,9 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 			remove(virtualPad);
 	}
 
-	public function addMobileControls(DefaultDrawTarget:Bool = false)
+	public function addMobileControls(DefaultDrawTarget:Bool = false, SpaceButton:Bool = false)
 	{
-		mobileControls = new MobileControls();
+		mobileControls = new MobileControls(SpaceButton);
 
 		camControls = new FlxCamera();
 		camControls.bgColor.alpha = 0;
