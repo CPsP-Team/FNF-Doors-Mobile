@@ -1876,7 +1876,7 @@ class PlayState extends MusicBeatState
 		{
 		  switch (SONG.characters[2].toLowerCase())
 		   {
-			 case 'screech' | 'screech_shaded' | 'halt' | "Ambush":
+			 case 'screech' | 'screech_shaded' | 'halt' | 'Ambush':
 		   	    addMobileControls(true);
 			 default:
 				addMobileControls(false);
