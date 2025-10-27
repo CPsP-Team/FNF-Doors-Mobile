@@ -49,7 +49,7 @@ class FlxHitbox extends FlxMobileInputManager
 			add(buttonUp = createHint(FlxG.width / 2, hitboxY, Std.int(FlxG.width / 4), buttonHeight, 0x00FF00));
 			add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), hitboxY, Std.int(FlxG.width / 4), buttonHeight, 0xFF0000));
 
-		    if (activateSpaceButton) add(buttonAction = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height * 0.25), 0xFFFF00));
+		    if (activateSpaceButton) add(buttonAction = createHint(0, 0, FlxG.width, Std.int(FlxG.height * 0.25), 0xFFFF00));
 		
 		for (button in Reflect.fields(this))
 		{
