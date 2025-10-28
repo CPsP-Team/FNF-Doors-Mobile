@@ -206,8 +206,9 @@
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
 	<icon path="art/iconOG.png" />
-	<icon path="art/iconSet.svg" priority="1" />
-	<icon path="art/iconSet.ico" priority="2" />
+	<icon path="art/iconDoorsMobile.png" if="mobile"/>
+	<icon path="art/iconSet.svg" if="desktop" priority="1" />
+	<icon path="art/iconSet.ico" if="desktop" priority="2" />
 
-	<icon path="assets/images/logo/HaxeFlixel.svg" priority="-1" />
+	<icon path="assets/images/logo/HaxeFlixel.svg" if="desktop" priority="-1" />
 </project>
