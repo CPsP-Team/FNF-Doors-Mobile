@@ -198,6 +198,13 @@
 	<!-- pretty (haxeflixel default), indent, classic (haxe compiler default) -->
 	<haxedef name="message.reporting" value="pretty" />
 
+    <!-- Mobile Stuff -->
+	<certificate path="doors-keystore.keystore" password="doorsmobile" alias="doorsmobile" alias-password="doorsmobile" if="android" />
+
+	<section if="ios">
+      <config:ios category_type="public.app-category.music-games" />
+	</section>
+
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
