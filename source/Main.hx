@@ -105,8 +105,6 @@ class Main extends Sprite
 		}
 		#end
 
-		//#if android FlxG.android.preventDefaultKeys = [BACK]; #end
-
 		super();
 
 		if (stage != null)
@@ -174,6 +172,7 @@ class Main extends Sprite
 		MenuSongManager.init();
 
 		FlxG.signals.gameResized.add(fixCameraShaders);
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
 		popupManager = new PopupManager();
 		addChild(popupManager);
