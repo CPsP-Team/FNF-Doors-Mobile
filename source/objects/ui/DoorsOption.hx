@@ -2,7 +2,6 @@ package objects.ui;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRect;
-import mobile.flixel.FlxVirtualPad;
 
 typedef Keybind = {
     keyboard:String,
@@ -48,9 +47,6 @@ class DoorsOption extends FlxSpriteGroup {
     static inline final DEFAULT_DECIMALS:Int = 1;
     static inline final DEFAULT_FORMAT:String = '%v';
     static inline final HOLD_THRESHOLD:Float = 0.5;
-
-    // Mobile (get out of here console)
-    public var virtualPad:FlxVirtualPad;
     
     // Core option properties
     var optionType:DoorsOptionType = DoorsOptionType.STRING;
@@ -375,22 +371,22 @@ class DoorsOption extends FlxSpriteGroup {
     
     private function checkLeftInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_LEFT #if mobile || virtualPad != null && virtualPad.buttonLeft.pressed #end);
+               (isSelected && Controls.instance.UI_LEFT #if mobile || MusicBeatSubstate.instance.virtualPad.buttonLeft.pressed #end);
     }
     
     private function checkRightInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_RIGHT #if mobile || virtualPad != null && virtualPad.buttonRight.pressed #end);
+               (isSelected && Controls.instance.UI_RIGHT #if mobile || MusicBeatSubstate.instance.virtualPad.buttonRight.pressed #end);
     }
     
     private function checkLeftPressedInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_LEFT_P #if mobile || virtualPad != null && virtualPad.buttonLeft.justPressed #end);
+               (isSelected && Controls.instance.UI_LEFT_P #if mobile || MusicBeatSubstate.instance.virtualPad.buttonLeft.justPressed #end);
     }
     
     private function checkRightPressedInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || virtualPad != null && virtualPad.buttonRight.justPressed #end);
+               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || MusicBeatSubstate.instance.virtualPad.buttonRight.justPressed #end);
     }
 
     private function handlePressedInput(left:Bool, right:Bool) {
