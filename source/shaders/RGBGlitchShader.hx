@@ -4,37 +4,39 @@ import flixel.addons.display.FlxRuntimeShader;
 import flixel.FlxBasic;
 import flixel.system.FlxAssets.FlxShader;
 
-class RGBGlitchShader extends FlxBasic{
-    public var shader(default, null):RGBGlitchGLSL = new RGBGlitchGLSL();
+class RGBGlitchShader extends FlxBasic
+{
+	public var shader(default, null):RGBGlitchGLSL = new RGBGlitchGLSL();
 
-    var iTime:Float = 0;
+	var iTime:Float = 0;
 
-    public var ampl(default, set):Float = 0.1;
+	public var ampl(default, set):Float = 0.1;
 
-    public function new(?_amt:Float = 0.1):Void{
-        super();
-        ampl = _amt;
-    }
+	public function new(?_amt:Float = 0.1):Void
+	{
+		super();
+		ampl = _amt;
+	}
 
-    override public function update(elapsed:Float):Void{
-        super.update(elapsed);
-        iTime += elapsed;
-        shader.iTime.value = [iTime];
-    }
+	override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+		iTime += elapsed;
+		shader.iTime.value = [iTime];
+	}
 
-    public function set_ampl(v:Float):Float{
-        ampl = v;
-        shader.glitchAmplitude.value = [v];
-        return ampl;
-    }
+	public function set_ampl(v:Float):Float
+	{
+		ampl = v;
+		shader.glitchAmplitude.value = [v];
+		return ampl;
+	}
 }
 
-class RGBGlitchGLSL extends FlxShader{
-    @:glFragmentSource('
+class RGBGlitchGLSL extends FlxShader
+{
+	@:glFragmentSource('
         #pragma header
-        vec2 uv = openfl_TextureCoordv.xy;
-        vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-        vec2 iResolution = openfl_TextureSize;
         uniform float iTime;
         #define iChannel0 bitmap
         #define texture flixel_texture2D
@@ -80,13 +82,16 @@ class RGBGlitchGLSL extends FlxShader{
             return val;
         }
 
-        uniform float glitchAmplitude = 0.1; // increase this
-        const float glitchNarrowness = 4.0;
-        const float glitchBlockiness = 2.0;
-        const float glitchMinimizer = 5.0; // decrease this
+        uniform float glitchAmplitude; // increase this
+        const float glitchNarrowness;
+        const float glitchBlockiness;
+        const float glitchMinimizer; // decrease this
 
         void mainImage()
         {
+            vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
+            vec2 iResolution = openfl_TextureSize;
+
             // Normalized pixel coordinates (from 0 to 1)
             vec2 uv = fragCoord/iResolution.xy;
             vec2 a = vec2(uv.x * (iResolution.x / iResolution.y), uv.y);
@@ -109,8 +114,8 @@ class RGBGlitchGLSL extends FlxShader{
             gl_FragColor.a = flixel_texture2D(bitmap, openfl_TextureCoordv).a;
         }
     ')
-
-    public function new(){
-        super();
-    }
+	public function new()
+	{
+		super();
+	}
 }
