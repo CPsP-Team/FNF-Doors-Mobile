@@ -3704,7 +3704,7 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		if (controls.PAUSE && startedCountdown && canPause)
+		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			openPauseMenu();
 		}
