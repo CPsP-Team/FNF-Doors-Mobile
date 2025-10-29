@@ -55,7 +55,7 @@ class FlxHitbox extends FlxMobileInputManager
           if (activateSpaceButton) {
 		    if (activateSpaceButtonTwo) {
 				add(buttonAction = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height * 0.25), 0xFFFF00));
-				add(buttonActionTwo = createHint(0, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height * 0.25), 0x800080));
+				add(buttonActionTwo = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), Std.int(FlxG.height * 0.25), 0x800080));
 			} else {
 				add(buttonAction = createHint(0, 0, FlxG.width, Std.int(FlxG.height * 0.25), 0xFFFF00));
 			}
