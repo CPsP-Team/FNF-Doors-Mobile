@@ -1877,9 +1877,13 @@ class PlayState extends MusicBeatState
 		  switch (SONG.characters[2].toLowerCase())
 		   {
 			 case 'eyes' | 'halt':
-		   	    addMobileControls(false, true);
+		   	    addMobileControls(false, 1);
 			 default:
-				addMobileControls(false);
+				if (SONG.hasHeartbeat) {
+				  addMobileControls(false, 2);
+				} else {
+				  addMobileControls(false);
+				}
 		   }
 			mobileControls.visible = false;
 			if (MobileControls.mode.toLowerCase() == 'hitbox')
