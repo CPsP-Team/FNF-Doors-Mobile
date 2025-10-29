@@ -64,6 +64,20 @@ class Utils
     #end
   }
 
+  public static function justPressed(obj:flixel.FlxBasic):Bool {
+        #if mobile
+        return FlxG.touches.list.filter(touch -> touch.justPressed && touch.overlaps(obj)).length > 0;
+        #end
+        return false;
+  }
+
+  public static function pressed(obj:flixel.FlxBasic):Bool {
+        #if mobile
+        return FlxG.touches.list.filter(touch -> touch.pressed && touch.overlaps(obj)).length > 0;
+        #end
+        return false;
+  }
+
 
   /**
    * Retorna entre verdadeiro ou falso a existência do arquivo especificado
