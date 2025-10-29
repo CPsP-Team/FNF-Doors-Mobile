@@ -43,8 +43,8 @@ class ChromaticAberrationGLSL extends FlxShader{
         #define fragColor gl_FragColor
         #define mainImage main
         
-        uniform float iOffset = 0.004;
-        uniform float iMin = 0.01;
+        uniform float iOffset;
+        uniform float iMin;
         
         vec4 pix(vec2 pos) 
         {
