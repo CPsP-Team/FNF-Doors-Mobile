@@ -364,29 +364,29 @@ class DoorsOption extends FlxSpriteGroup {
             if (optionType != DoorsOptionType.STRING && optionType != DoorsOptionType.BOOL) {
                 holdTime += elapsed;
             }
-        } else if (#if mobile MusicBeatSubstate.instance.virtualpad.buttonLeft.justReleased || MusicBeatSubstate.instance.virtualpad.buttonRight.justReleased || FlxG.mouse.justReleased #else Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased #end) {
+        } else if (#if mobile MusicBeatSubstate.instance.virtualPad.buttonLeft.justReleased || MusicBeatSubstate.instance.virtualPad.buttonRight.justReleased || FlxG.mouse.justReleased #else Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased #end) {
             clearHold();
         }
     }
     
     private function checkLeftInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_LEFT #if mobile || MusicBeatSubstate.instance.virtualpad.buttonLeft.pressed #end);
+               (isSelected && Controls.instance.UI_LEFT #if mobile || MusicBeatSubstate.instance.virtualPad.buttonLeft.pressed #end);
     }
     
     private function checkRightInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_RIGHT #if mobile || MusicBeatSubstate.instance.virtualpad.buttonRight.pressed #end);
+               (isSelected && Controls.instance.UI_RIGHT #if mobile || MusicBeatSubstate.instance.virtualPad.buttonRight.pressed #end);
     }
     
     private function checkLeftPressedInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_LEFT_P #if mobile || MusicBeatSubstate.instance.virtualpad.buttonLeft.justPressed #end);
+               (isSelected && Controls.instance.UI_LEFT_P #if mobile || MusicBeatSubstate.instance.virtualPad.buttonLeft.justPressed #end);
     }
     
     private function checkRightPressedInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || MusicBeatSubstate.instance.virtualpad.buttonRight.justPressed #end);
+               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || MusicBeatSubstate.instance.virtualPad.buttonRight.justPressed #end);
     }
 
     private function handlePressedInput(left:Bool, right:Bool) {
