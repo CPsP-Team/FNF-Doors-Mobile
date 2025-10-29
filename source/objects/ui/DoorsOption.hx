@@ -372,22 +372,22 @@ class DoorsOption extends FlxSpriteGroup {
     
     private function checkLeftInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_LEFT #if mobile || BaseOptionsMenu.virtualPad.buttonLeft.pressed #end);
+               (isSelected && Controls.instance.UI_LEFT #if mobile || BaseOptionsMenu.instance.virtualPad.buttonLeft.pressed #end);
     }
     
     private function checkRightInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_RIGHT #if mobile || BaseOptionsMenu.virtualPad.buttonRight.pressed #end);
+               (isSelected && Controls.instance.UI_RIGHT #if mobile || BaseOptionsMenu.instance.virtualPad.buttonRight.pressed #end);
     }
     
     private function checkLeftPressedInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_LEFT_P #if mobile || BaseOptionsMenu.virtualPad.buttonLeft.justPressed #end);
+               (isSelected && Controls.instance.UI_LEFT_P #if mobile || BaseOptionsMenu.instance.virtualPad.buttonLeft.justPressed #end);
     }
     
     private function checkRightPressedInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || BaseOptionsMenu.virtualPad.buttonRight.justPressed #end);
+               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || BaseOptionsMenu.instance.virtualPad.buttonRight.justPressed #end);
     }
 
     private function handlePressedInput(left:Bool, right:Bool) {
