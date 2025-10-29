@@ -1881,8 +1881,6 @@ class PlayState extends MusicBeatState
 			 default:
 				addMobileControls(false);
 		   }
-			if (SONG.hasHeartbeat) add2kHitboxControls(false);
-			//heartBeatHitbox.visible = true;
 			mobileControls.visible = false;
 			if (MobileControls.mode.toLowerCase() == 'hitbox')
 			{
@@ -1892,8 +1890,8 @@ class PlayState extends MusicBeatState
 					mobileControls.hitbox.buttonDown,
 					mobileControls.hitbox.buttonUp,
 					mobileControls.hitbox.buttonRight,
-					heartBeatHitbox.buttonLeft,
-					heartBeatHitbox.buttonRight
+					mobileControls.hitbox.buttonAction,
+					mobileControls.hitbox.buttonActionTwo
 				];
 			  } else {
 				mcontrolsKeys = [
@@ -2931,7 +2929,6 @@ class PlayState extends MusicBeatState
 				if (songData.hasHeartbeat)
 				{
 					swagNote.isHeartbeat = songNotes[1] > 7;
-					heartBeatHitbox.visible = true;
 				}
 				if (gottaHitNote)
 				{
@@ -2940,7 +2937,6 @@ class PlayState extends MusicBeatState
 				else
 				{
 					swagNote.isOppNote = daNoteData < 4;
-					heartBeatHitbox.visible = false;
 				}
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1] < 4));
