@@ -2,7 +2,7 @@ package objects.ui;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRect;
-import mobile.MobileTouchUtils;
+import mobile.TouchInput as MobileTouchUtils;
 
 typedef Keybind = {
     keyboard:String,
