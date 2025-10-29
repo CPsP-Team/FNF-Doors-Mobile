@@ -20,7 +20,6 @@ import modcharting.*;
 import backend.BaseStage;
 import mobile.MobileControls;
 import mobile.flixel.FlxVirtualPad;
-import mobile.flixel.Flx2kHitbox;
 import flixel.util.FlxDestroyUtil;
 
 class MusicBeatState extends modcharting.ModchartMusicBeatState
@@ -47,12 +46,10 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 
 	public static var instance:MusicBeatState;
 	public var mobileControls:MobileControls;
-	public var heartBeatHitbox:Flx2kHitbox;
 	public var virtualPad:FlxVirtualPad;
 
 	public var vpadCam:FlxCamera;
 	public var camControls:FlxCamera;
-	public var camHeartControls:FlxCamera;
 
 	
     public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
@@ -70,7 +67,7 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 			remove(virtualPad);
 	}
 
-	public function addMobileControls(DefaultDrawTarget:Bool = false, SpaceButton:Bool = false)
+	public function addMobileControls(DefaultDrawTarget:Bool = false, SpaceButton:Int = 0)
 	{
 		mobileControls = new MobileControls(SpaceButton);
 
@@ -81,19 +78,6 @@ class MusicBeatState extends modcharting.ModchartMusicBeatState
 		mobileControls.cameras = [camControls];
 		mobileControls.visible = false;
 		add(mobileControls);
-	}
-
-	public function add2kHitboxControls(DefaultDrawTarget:Bool = false)
-	{
-		heartBeatHitbox = new Flx2kHitbox();
-
-		camHeartControls = new FlxCamera();
-		camHeartControls.bgColor.alpha = 0;
-		FlxG.cameras.add(camHeartControls, DefaultDrawTarget);
-
-		heartBeatHitbox.cameras = [camControls];
-		heartBeatHitbox.visible = false;
-		add(heartBeatHitbox);
 	}
 
 	public function removeMobileControls()
