@@ -11,15 +11,15 @@ import mobile.flixel.input.FlxMobileInputID;
 import haxe.ds.Map;
 
 /**
- * A zone with 4 hint's (A hitbox).
+ * A zone with 2 hint's (A hitbox).
  * It's really easy to customize the layout.
  *
- * @author Mihai Alexandru (M.A. Jigsaw)
+ * @author Cream.BR
  */
 class Flx2kHitbox extends FlxMobileInputManager
 {
-	public var buttonLeft:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.noteLEFT]);
-	public var buttonRight:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.noteRIGHT]);
+	public var buttonLeft:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxLEFT, FlxMobileInputID.heartbeatLEFT]);
+	public var buttonRight:FlxButton = new FlxButton(0, 0, [FlxMobileInputID.hitboxRIGHT, FlxMobileInputID.heartbeatRIGHT]);
 
 	var AlphaThing:Float = 0.2;
 	var storedButtonsIDs:Map<String, Array<FlxMobileInputID>> = new Map<String, Array<FlxMobileInputID>>();
@@ -39,7 +39,7 @@ class Flx2kHitbox extends FlxMobileInputManager
 		}
 
 			add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 2), FlxG.height, 0xFF00FF));
-			add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), 0, Std.int(FlxG.width / 2), FlxG.height, 0xFF0000));
+			add(buttonRight = createHint(FlxG.width / 2, 0, Std.int(FlxG.width / 2), FlxG.height, 0xFF0000));
 		
 		for (button in Reflect.fields(this))
 		{
@@ -97,4 +97,5 @@ class Flx2kHitbox extends FlxMobileInputManager
 		#end
 		return hint;
 	}
+
 }
