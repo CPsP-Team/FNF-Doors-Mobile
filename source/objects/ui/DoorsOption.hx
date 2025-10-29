@@ -4,6 +4,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRect;
 
 typedef Keybind = {
+    #if mobile mobile:String, #end
     keyboard:String,
     gamepad:String
 }
@@ -364,29 +365,29 @@ class DoorsOption extends FlxSpriteGroup {
             if (optionType != DoorsOptionType.STRING && optionType != DoorsOptionType.BOOL) {
                 holdTime += elapsed;
             }
-        } else if (#if mobile MusicBeatSubstate.instance.virtualPad.buttonLeft.justReleased || MusicBeatSubstate.instance.virtualPad.buttonRight.justReleased || FlxG.mouse.justReleased #else Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased #end) {
+        } else if (Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased) {
             clearHold();
         }
     }
     
     private function checkLeftInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_LEFT #if mobile || MusicBeatSubstate.instance.virtualPad.buttonLeft.pressed #end);
+               (isSelected && Controls.instance.UI_LEFT);
     }
     
     private function checkRightInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_RIGHT #if mobile || MusicBeatSubstate.instance.virtualPad.buttonRight.pressed #end);
+               (isSelected && Controls.instance.UI_RIGHT);
     }
     
     private function checkLeftPressedInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_LEFT_P #if mobile || MusicBeatSubstate.instance.virtualPad.buttonLeft.justPressed #end);
+               (isSelected && Controls.instance.UI_LEFT_P);
     }
     
     private function checkRightPressedInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_RIGHT_P #if mobile || MusicBeatSubstate.instance.virtualPad.buttonRight.justPressed #end);
+               (isSelected && Controls.instance.UI_RIGHT_P);
     }
 
     private function handlePressedInput(left:Bool, right:Bool) {
