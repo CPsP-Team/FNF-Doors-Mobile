@@ -52,9 +52,9 @@ class RGBGlitchGLSL extends FlxShader{
             vec2 id = floor(uv);
             
             float n1 = rand(id);
-            float n2 = rand(id+vec2(1,0));
-            float n3 = rand(id+vec2(0,1));
-            float n4 = rand(id+vec2(1,1));
+            float n2 = rand(id+vec2(1., 0.));
+            float n3 = rand(id+vec2(0., 1.));
+            float n4 = rand(id+vec2(1., 1.));
             
             vec2 u = smoothstep(0.0, 1.0 + blockiness, lv);
 
