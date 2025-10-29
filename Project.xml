@@ -199,7 +199,7 @@
 	<haxedef name="message.reporting" value="pretty" />
 
     <!-- Mobile Stuff -->
-	<certificate path="doors-keystore.keystore" password="doorsmobile" alias="doorsmobile" alias-password="doorsmobile" if="android" />
+	<certificate path="doors-keystore.keystore" password="doorsmobile" alias="doorsmobile" alias-password="doorsmobile" if="android" unless="debug"/>
 
 	<section if="ios">
       <config:ios category_type="public.app-category.music-games" />
