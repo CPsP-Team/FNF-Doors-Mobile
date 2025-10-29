@@ -2,6 +2,7 @@ package objects.ui;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRect;
+import options.substates.BaseOptionsMenu;
 
 typedef Keybind = {
     keyboard:String,
