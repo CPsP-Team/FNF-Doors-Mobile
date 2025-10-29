@@ -1882,7 +1882,7 @@ class PlayState extends MusicBeatState
 				addMobileControls(false);
 		   }
 			if (SONG.hasHeartbeat) add2kHitboxControls(false);
-			//heartBeatHitbox.visible = false;
+			heartBeatHitbox.visible = true;
 			mobileControls.visible = false;
 			if (MobileControls.mode.toLowerCase() == 'hitbox')
 			{
