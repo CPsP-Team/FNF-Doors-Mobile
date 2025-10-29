@@ -33,6 +33,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	public var title:String;
 	public var rpcTitle:String;
 
+	#if mobile
+	//Mobile Shit
+	public static var instance:BaseOptionsMenu;
+	#end
+
 	var titleText:FlxText;
 
 	function openSelectedSubstate(label:String)
