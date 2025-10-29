@@ -1881,15 +1881,28 @@ class PlayState extends MusicBeatState
 			 default:
 				addMobileControls(false);
 		   }
+			if (SONG.hasHeartbeat) add2kHitboxControls(false);
+			//heartBeatHitbox.visible = false;
 			mobileControls.visible = false;
 			if (MobileControls.mode.toLowerCase() == 'hitbox')
 			{
+			  if (SONG.hasHeartbeat) {
+				mcontrolsKeys = [
+					mobileControls.hitbox.buttonLeft,
+					mobileControls.hitbox.buttonDown,
+					mobileControls.hitbox.buttonUp,
+					mobileControls.hitbox.buttonRight,
+					heartBeatHitbox.buttonLeft,
+					heartBeatHitbox.buttonRight
+				];
+			  } else {
 				mcontrolsKeys = [
 					mobileControls.hitbox.buttonLeft,
 					mobileControls.hitbox.buttonDown,
 					mobileControls.hitbox.buttonUp,
 					mobileControls.hitbox.buttonRight
 				];
+			  }
 			}
 			else if (MobileControls.mode.toLowerCase().startsWith('pad'))
 			{
