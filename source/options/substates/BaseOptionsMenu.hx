@@ -29,8 +29,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var switchStateButtons:FlxTypedSpriteGroup<DoorsButton>;
 	private var grpOptions:FlxTypedSpriteGroup<DoorsOption>;
 
-	#if mobile public static var instance:BaseOptionsMenu; #end
-
 	public var internalTitle:String; // like title, but can be accessed in the en.xml
 	public var title:String;
 	public var rpcTitle:String;
@@ -62,8 +60,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	{
 		super();
 		ClientPrefs.saveSettings();
-
-		#if mobile instance = this; #end
 
 		for (i in 0...options.length)
 		{
