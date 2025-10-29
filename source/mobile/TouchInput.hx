@@ -1,4 +1,4 @@
-package funkin.mobile.backend;
+package mobile;
 
 import flixel.FlxG;
 
@@ -17,25 +17,25 @@ class TouchInput {
         #end
         return false;
     }
-    public static function justPressed(obj:flixel.FlxBasic):Bool {
+    public static function justPressed(obj:Dynamic):Bool {
         #if mobile
         return FlxG.touches.list.filter(touch -> touch.justPressed && touch.overlaps(obj)).length > 0;
         #end
         return false;
     }
-    public static function justReleased(obj:flixel.FlxBasic):Bool {
+    public static function justReleased(obj:Dynamic):Bool {
         #if mobile
         return FlxG.touches.list.filter(touch -> touch.justReleased && touch.overlaps(obj)).length > 0;
         #end
         return false;
     }
-    public static function pressed(obj:flixel.FlxBasic):Bool {
+    public static function pressed(obj:Dynamic):Bool {
         #if mobile
         return FlxG.touches.list.filter(touch -> touch.pressed && touch.overlaps(obj)).length > 0;
         #end
         return false;
     }
-    public static function released(obj:flixel.FlxBasic):Bool {
+    public static function released(obj:Dynamic):Bool {
         #if mobile
         return FlxG.touches.list.filter(touch -> touch.released && touch.overlaps(obj)).length > 0;
         #end
