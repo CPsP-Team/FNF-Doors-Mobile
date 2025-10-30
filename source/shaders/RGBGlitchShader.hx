@@ -39,9 +39,9 @@ class RGBGlitchGLSL extends FlxShader
         #pragma header
         uniform float iTime;
         uniform float glitchAmplitude; // increase this
-        const float glitchNarrowness;
-        const float glitchBlockiness;
-        const float glitchMinimizer; // decrease this
+        const float glitchNarrowness = 4.0;
+        const float glitchBlockiness = 2.0;
+        const float glitchMinimizer = 5.0; // decrease this
         #define iChannel0 bitmap
         #define texture flixel_texture2D
         #define fragColor gl_FragColor
