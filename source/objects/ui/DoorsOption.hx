@@ -371,22 +371,22 @@ class DoorsOption extends FlxSpriteGroup {
     
     private function checkLeftInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_LEFT);
+               (isSelected && Controls.instance.UI_LEFT || (FlxG.mouse.overlaps(leftSelector) && FlxG.mouse.pressed));
     }
     
     private function checkRightInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_RIGHT);
+               (isSelected && Controls.instance.UI_RIGHT || (FlxG.mouse.overlaps(rightSelector) && FlxG.mouse.pressed));
     }
     
     private function checkLeftPressedInput():Bool {
         return leftSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_LEFT_P);
+               (isSelected && Controls.instance.UI_LEFT_P || (FlxG.mouse.overlaps(leftSelector) && FlxG.mouse.justPressed));
     }
     
     private function checkRightPressedInput():Bool {
         return rightSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_RIGHT_P);
+               (isSelected && Controls.instance.UI_RIGHT_P || (FlxG.mouse.overlaps(rightSelector) && FlxG.mouse.justPressed));
     }
 
     private function handlePressedInput(left:Bool, right:Bool) {
