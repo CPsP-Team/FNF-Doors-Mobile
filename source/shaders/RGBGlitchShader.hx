@@ -38,6 +38,10 @@ class RGBGlitchGLSL extends FlxShader
 	@:glFragmentSource('
         #pragma header
         uniform float iTime;
+        uniform float glitchAmplitude; // increase this
+        const float glitchNarrowness;
+        const float glitchBlockiness;
+        const float glitchMinimizer; // decrease this
         #define iChannel0 bitmap
         #define texture flixel_texture2D
         #define fragColor gl_FragColor
@@ -82,15 +86,8 @@ class RGBGlitchGLSL extends FlxShader
             return val;
         }
 
-        uniform float glitchAmplitude; // increase this
-        const float glitchNarrowness;
-        const float glitchBlockiness;
-        const float glitchMinimizer; // decrease this
-
         void mainImage()
         {
-            vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-            vec2 iResolution = openfl_TextureSize;
 
             // Normalized pixel coordinates (from 0 to 1)
             vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
