@@ -28,24 +28,28 @@ class Asset2File
 	}
 
 	public static function readDirectory(path:String):Array<String> {
-		var files:Array<String> = [];
+        var files:Array<String> = [];
         for (asset in lime.utils.Assets.list()) {
             if (StringTools.startsWith(asset, path + "/")) {
                 var relative = asset.substr(path.length + 1);
-                var slash = relative.indexOf("/");
 
-              if (slash == -1 && relative != "") files.push(relative);
+                if (relative.indexOf("/") == -1 && relative != "") {
+                    files.push(relative);
+                }
             }
+        }
+
         return files;
-	   }
-	}
+    }
 
 	public static function isDirectory(path:String):Bool {
         #if sys
         return sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path);
         #else
         for (asset in lime.utils.Assets.list()) {
-            if (StringTools.startsWith(asset, path + "/")) return true;
+            if (StringTools.startsWith(asset, path + "/")) {
+                return true;
+            }
         }
         return false;
         #end
