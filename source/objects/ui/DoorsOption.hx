@@ -4,7 +4,6 @@ import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRect;
 
 typedef Keybind = {
-    #if mobile mobile:String, #end
     keyboard:String,
     gamepad:String
 }
