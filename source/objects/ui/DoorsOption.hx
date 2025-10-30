@@ -364,7 +364,7 @@ class DoorsOption extends FlxSpriteGroup {
             if (optionType != DoorsOptionType.STRING && optionType != DoorsOptionType.BOOL) {
                 holdTime += elapsed;
             }
-        } else if (#if desktop Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased #else || MusicBeatState.instance.virtualPad.buttonLeft.justPressed || MusicBeatState.instance.virtualPad.buttonRight.justPressed #end) {
+        } else if (#if desktop Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased #else MusicBeatState.instance.virtualPad.buttonLeft.justPressed || MusicBeatState.instance.virtualPad.buttonRight.justPressed #end) {
             clearHold();
         }
     }
