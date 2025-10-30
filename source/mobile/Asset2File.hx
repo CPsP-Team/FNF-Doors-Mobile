@@ -28,7 +28,7 @@ class Asset2File
 	}
 
 	public static function readDirectory(path:String):Array<String> {
-        var files:Array<String> = [];
+		var files:Array<String> = [];
         for (asset in lime.utils.Assets.list()) {
             if (StringTools.startsWith(asset, path + "/")) {
                 var relative = asset.substr(path.length + 1);
