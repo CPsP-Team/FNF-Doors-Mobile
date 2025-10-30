@@ -26,4 +26,19 @@ class Asset2File
 		return #if sys Sys.getCwd() + #end id;
 		#end
 	}
+
+	public static function isDirectory(path:String):Bool {
+        #if sys
+        // No desktop ou Android nativo com sys habilitado
+        return sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path);
+        #else
+        // Tenta detectar se o "caminho" é um prefixo de algum asset tlgd
+        for (asset in lime.utils.Assets.list()) {
+            if (StringTools.startsWith(asset, path + "/")) {
+                return true;
+            }
+        }
+        return false;
+        #end
+	}
 }
