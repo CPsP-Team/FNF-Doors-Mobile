@@ -166,10 +166,18 @@
 	<!-- <haxedef name="FLX_NO_TOUCH" if="desktop" /> -->
 	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
 
-	<android>
+	 <!-- Mobile Shit -->
+<android>
     <permission name="android.permission.INTERNET" />
+	<android target-sdk-version="34" />
+	<android min-sdk-version="19" />
+	<certificate path="doors-keystore.keystore" password="doorsmobile" alias="doorsmobile" alias-password="doorsmobile" if="android-test" unless="nokeystore"/>
 </android>
 
+	<section if="ios">
+      <config:ios category_type="public.app-category.music-games" />
+</section>
+		
     <window vsync="true" antialiasing="4" if="cpp" />
 
 	<!--Disable the Flixel core sound tray-->
@@ -197,13 +205,6 @@
 	<!-- Haxe 4.3.0+: Enable pretty syntax errors and stuff. -->
 	<!-- pretty (haxeflixel default), indent, classic (haxe compiler default) -->
 	<haxedef name="message.reporting" value="pretty" />
-
-    <!-- Mobile Stuff -->
-	<certificate path="doors-keystore.keystore" password="doorsmobile" alias="doorsmobile" alias-password="doorsmobile" if="android-test" unless="nokeystore"/>
-
-	<section if="ios">
-      <config:ios category_type="public.app-category.music-games" />
-	</section>
 
 	<!-- _________________________________ Custom _______________________________ -->
 
