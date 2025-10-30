@@ -350,15 +350,6 @@ class DoorsOption extends FlxSpriteGroup {
         var left_p = checkLeftPressedInput();
         var right_p = checkRightPressedInput();
 
-     #if mobile
-        if (FlxG.mouse.justPressed) {
-			var mousePos = FlxG.mouse.getWorldPosition();
-			if (leftSelector.overlapsPoint(mousePos) || rightSelector.overlapsPoint(mousePos)) {
-				handlePressedInput(left, right);
-            }
-		}
-     #end
-
         if (left || right) {
             var pressed = (left_p || right_p);
 
@@ -379,23 +370,27 @@ class DoorsOption extends FlxSpriteGroup {
     }
     
     private function checkLeftInput():Bool {
+	  #if mobile var mousePos = FlxG.mouse.getWorldPosition(); #end
         return leftSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_LEFT || (FlxG.mouse.overlaps(leftSelector) && FlxG.mouse.pressed));
+               (isSelected && Controls.instance.UI_LEFT) #if mobile || (leftSelector.overlapsPoint(mousePos) && FlxG.mouse.pressed) #end;
     }
     
     private function checkRightInput():Bool {
+	  #if mobile var mousePos = FlxG.mouse.getWorldPosition(); #end
         return rightSelector.isHovered && FlxG.mouse.pressed || 
-               (isSelected && Controls.instance.UI_RIGHT || (FlxG.mouse.overlaps(rightSelector) && FlxG.mouse.pressed));
+               (isSelected && Controls.instance.UI_RIGHT) #if mobile || (rightSelector.overlapsPoint(mousePos) && FlxG.mouse.pressed) #end;
     }
     
     private function checkLeftPressedInput():Bool {
+	  #if mobile var mousePos = FlxG.mouse.getWorldPosition(); #end
         return leftSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_LEFT_P || (FlxG.mouse.overlaps(leftSelector) && FlxG.mouse.justPressed));
+               (isSelected && Controls.instance.UI_LEFT_P) #if mobile || (leftSelector.overlapsPoint(mousePos) && FlxG.mouse.justPressed) #end;
     }
     
     private function checkRightPressedInput():Bool {
+	  #if mobile var mousePos = FlxG.mouse.getWorldPosition(); #end
         return rightSelector.isHovered && FlxG.mouse.justPressed || 
-               (isSelected && Controls.instance.UI_RIGHT_P || (FlxG.mouse.overlaps(rightSelector) && FlxG.mouse.justPressed));
+               (isSelected && Controls.instance.UI_RIGHT_P) #if mobile || (rightSelector.overlapsPoint(mousePos) && FlxG.mouse.justPressed) #end;
     }
 
     private function handlePressedInput(left:Bool, right:Bool) {
