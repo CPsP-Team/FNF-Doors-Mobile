@@ -168,7 +168,7 @@ class PlayState extends MusicBeatState
 	private var strumLine:FlxSprite;
 
 	#if mobile
-	private var mobileKeysHeld:Array<Bool> = [false, false, false, false]; // apenas para fixar as notas de segurar ass: vilgax do ben 10
+	private var mobileKeysHeld:Array<Bool> = [false, false, false, false, false, false]; // apenas para fixar as notas de segurar ass: vilgax do ben 10
 	#end
 
 	// Handles the new epic mega sexy cam code that i've done
@@ -6070,7 +6070,7 @@ class PlayState extends MusicBeatState
 		});
 		plrInputNotes.sort(sortHitNotes);
 
-		var shouldMiss:Bool = !(ClientPrefs.data.ghostTapping) || (key > 3 && taikoActive);
+	    var shouldMiss:Bool = !(ClientPrefs.data.ghostTapping);
 
 		if (plrInputNotes.length != 0)
 		{ // slightly faster than doing `> 0` lol
