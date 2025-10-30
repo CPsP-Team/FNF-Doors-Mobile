@@ -364,7 +364,7 @@ class DoorsOption extends FlxSpriteGroup {
             if (optionType != DoorsOptionType.STRING && optionType != DoorsOptionType.BOOL) {
                 holdTime += elapsed;
             }
-        } else if (Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased) {
+        } else if (#if desktop Controls.instance.UI_LEFT_R || Controls.instance.UI_RIGHT_R || FlxG.mouse.justReleased || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) {
             clearHold();
         }
     }
@@ -581,10 +581,10 @@ class DoorsOption extends FlxSpriteGroup {
     }
     
     private function handleControlSelection() {
-        if (Controls.instance.UI_LEFT_P) {
+        if (Controls.instance.UI_LEFT_P  #if mobile || virtualPad.buttonLeft.justPressed #end) {
             whichSelected = "l";
             changeBgSpr(true);
-        } else if (Controls.instance.UI_RIGHT_P) {
+        } else if (Controls.instance.UI_RIGHT_P  #if mobile || virtualPad.buttonRight.justPressed #end) {
             whichSelected = "r";
             changeBgSpr(true);
         }
