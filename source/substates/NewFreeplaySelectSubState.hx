@@ -147,7 +147,7 @@ class NewFreeplaySelectSubState extends MusicBeatSubstate
 		var metadataList:Array<SongMetadata> = [];
 		var category = NewFreeplayState.currentCategory;
 		for(folder in Assets.getText(Paths.getPreloadPath("data/"))){
-			if(!FileSystem.isDirectory(Paths.getPreloadPath("data/" + folder + "/"))) continue;
+			if(!mobile.Asset2File.isDirectory(Paths.getPreloadPath("data/" + folder + "/"))) continue;
 			var metadata:SongMetadata = new SongMetadata(folder);
 			if(metadata.category != category) continue;
 			metadataList.push(metadata);
