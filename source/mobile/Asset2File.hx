@@ -28,13 +28,6 @@ class Asset2File
 	}
 
 	public static function readDirectory(path:String):Array<String> {
-        #if sys
-        if (sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path)) {
-            return sys.FileSystem.readDirectory(path);
-        } else {
-            return null;
-        }
-        #else
         // Culpa tua doors kkkkkk
         var files:Array<String> = [];
         for (asset in lime.utils.Assets.list()) {
@@ -48,7 +41,6 @@ class Asset2File
             }
         }
         return files;
-        #end
 	}
 
 	public static function isDirectory(path:String):Bool {
