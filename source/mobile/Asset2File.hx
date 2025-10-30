@@ -39,6 +39,7 @@ class Asset2File
                }
             }
         return files;
+	   }
 	}
 
 	public static function isDirectory(path:String):Bool {
