@@ -27,6 +27,31 @@ class Asset2File
 		#end
 	}
 
+	public static function readDirectory(path:String):Array<String> {
+        #if sys
+        // Quem tem tem né
+        if (sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path)) {
+            return sys.FileSystem.readDirectory(path);
+        } else {
+            return [];
+        }
+        #else
+        // Culpa tua doors kkkkkk
+        var files:Array<String> = [];
+        for (asset in lime.utils.Assets.list()) {
+            if (StringTools.startsWith(asset, path + "/")) {
+                // Pega só o nome do arquivo (sem o prefixo da pasta)
+                var relative = asset.substr(path.length + 1);
+                var slash = relative.indexOf("/");
+                // Só adiciona se for arquivo direto (não subpasta)
+                if (slash == -1 && relative != "")
+                    files.push(relative);
+            }
+        }
+        return files;
+        #end
+	}
+
 	public static function isDirectory(path:String):Bool {
         #if sys
         // No desktop ou Android nativo com sys habilitado
