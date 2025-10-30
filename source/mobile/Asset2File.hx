@@ -33,10 +33,8 @@ class Asset2File
             if (StringTools.startsWith(asset, path + "/")) {
                 var relative = asset.substr(path.length + 1);
                 var slash = relative.indexOf("/");
-                
-              if (slash == -1 && relative != "") {
-                  files.push(relative);
-               }
+
+              if (slash == -1 && relative != "") files.push(relative);
             }
         return files;
 	   }
@@ -47,9 +45,7 @@ class Asset2File
         return sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path);
         #else
         for (asset in lime.utils.Assets.list()) {
-            if (StringTools.startsWith(asset, path + "/")) {
-                return true;
-            }
+            if (StringTools.startsWith(asset, path + "/")) return true;
         }
         return false;
         #end
