@@ -355,7 +355,8 @@ class DoorsOption extends FlxSpriteGroup {
 			var mousePos = FlxG.mouse.getWorldPosition();
 			if (leftSelector.overlapsPoint(mousePos) || rightSelector.overlapsPoint(mousePos)) {
 				handlePressedInput(left, right);
-        }
+            }
+		}
      #end
 
         if (left || right) {
