@@ -615,7 +615,7 @@ class DoorsOption extends FlxSpriteGroup {
     public function getValue():Dynamic {
         var value = Reflect.getProperty(ClientPrefs.data, variable);
         if (optionType == DoorsOptionType.CONTROL) {
-            return !Controls.instance.controllerMode ? value.keyboard : value.gamepad;
+            return !Controls.instance.controllerMode ? #if mobile value.mobile #else value.keyboard #end : value.gamepad;
         }
         return value;
     }
