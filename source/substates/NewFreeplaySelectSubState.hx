@@ -9,6 +9,8 @@ import backend.metadata.SongMetadata;
 import sys.io.File;
 import haxe.Json;
 import sys.FileSystem;
+import lime.utils.Assets;
+import lime.utils.AssetType;
 import online.SongLeaderboardSubstate;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxTextNew as FlxText;
@@ -145,8 +147,8 @@ class NewFreeplaySelectSubState extends MusicBeatSubstate
 	function getMetadatasForCategory(){
 		var metadataList:Array<SongMetadata> = [];
 		var category = NewFreeplayState.currentCategory;
-		for(folder in FileSystem.readDirectory(Paths.getPreloadPath("data/"))){
-			if(!FileSystem.isDirectory(Paths.getPreloadPath("data/" + folder + "/"))) continue;
+		for(folder in Assets.getText(Paths.getPreloadPath("data/"))){
+			if(!Assets.exists(Paths.getPreloadPath("data/" + folder + "/"), AssetType.TEXT)) continue;
 			var metadata:SongMetadata = new SongMetadata(folder);
 			if(metadata.category != category) continue;
 			metadataList.push(metadata);
