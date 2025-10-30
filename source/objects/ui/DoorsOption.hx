@@ -581,10 +581,10 @@ class DoorsOption extends FlxSpriteGroup {
     }
     
     private function handleControlSelection() {
-        if (Controls.instance.UI_LEFT_P  #if mobile || virtualPad.buttonLeft.justPressed #end) {
+        if (Controls.instance.UI_LEFT_P) {
             whichSelected = "l";
             changeBgSpr(true);
-        } else if (Controls.instance.UI_RIGHT_P  #if mobile || virtualPad.buttonRight.justPressed #end) {
+        } else if (Controls.instance.UI_RIGHT_P) {
             whichSelected = "r";
             changeBgSpr(true);
         }
