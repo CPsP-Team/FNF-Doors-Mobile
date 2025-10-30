@@ -29,7 +29,7 @@ class Asset2File
 
 	public static function readDirectory(path:String):Array<String> {
         #if sys
-        // Quem tem tem né
+        // Quem tem tem ne
         if (sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path)) {
             return sys.FileSystem.readDirectory(path);
         } else {
