@@ -37,6 +37,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: AndroidBuild
+          name: Doors Engine Android
           path: export/release/android/bin/app/build/outputs/apk/*
           if-no-files-found: error
