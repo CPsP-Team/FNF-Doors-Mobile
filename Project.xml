@@ -167,15 +167,15 @@
 	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
 
 	 <!-- Mobile Shit -->
-<android>
-    <permission name="android.permission.INTERNET" />
+<section if="android">
+    <config:android permission="android.permission.INTERNET" />
 	<android target-sdk-version="34" />
 	<android min-sdk-version="19" />
 	<certificate path="doors-keystore.keystore" password="doorsmobile" alias="doorsmobile" alias-password="doorsmobile"/>
-</android>
+</section>
 
-	<section if="ios">
-      <config:ios category_type="public.app-category.music-games" />
+<section if="ios">
+    <config:ios category_type="public.app-category.music-games" />
 </section>
 		
     <window vsync="true" antialiasing="4" if="cpp" />
