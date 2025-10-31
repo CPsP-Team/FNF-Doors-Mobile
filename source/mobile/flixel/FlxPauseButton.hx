@@ -41,7 +41,7 @@ class FlxPauseButton
      * @param parent - Group where the button will be added (optional)
      * @param onClick - Callback for when the button is clicked (optional)
      */
-    public static function showPauseButton(?parent:FlxGroup, ?onClick:Void->Void):Void 
+    public function showPauseButton(?parent:FlxGroup, ?onClick:Void->Void):Void 
     {
         #if mobile
         var manager = getInstance();
