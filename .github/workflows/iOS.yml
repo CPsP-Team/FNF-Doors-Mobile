@@ -1,0 +1,37 @@
+name: iOS Build
+on:
+  workflow_dispatch:
+jobs:
+  iOS:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.2
+      - name: Install Libraries
+        run: |
+          haxelib install hmm --quiet
+          haxelib run hmm setup
+          haxelib run hmm install
+          remove lime
+          haxelib git lime https://github.com/th2l-devs/lime
+      - name: Compile
+        run: haxelib run lime build ios -clean -nosign
+      - name: Making ipa file
+        run: |
+          brew install ldid
+          cd export/release/ios/build/Release-iphoneos/FNF Doors.app
+          ldid -S../../../FNF Doors/FNF Doors.entitlements FNF Doors
+          cd ..
+          mkdir Payload
+          mv FNF Doors.app Payload
+          zip -r FNF Doors.ipa Payload
+      - name: Uploading artifact (entire build)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Doors Engine iOS
+          path: export/release/ios/build/Release-iphoneos/*.ipa
