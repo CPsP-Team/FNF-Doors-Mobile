@@ -2751,7 +2751,7 @@ class PlayState extends MusicBeatState
 		lastReportedPlayheadPosition = 0;
 
 		#if mobile
-		FlxPauseButton.showPauseButton(null, function() {
+		FlxPauseButton.showPauseButton(camHUD, null, function() {
 		openPauseMenu();
 		});
 	    #end
