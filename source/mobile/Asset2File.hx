@@ -29,18 +29,17 @@ class Asset2File
 
 	public static function readDirectory(path:String):Array<String> {
         var files:Array<String> = [];
-        for (asset in lime.utils.Assets.list()) {
+
+        for (asset in Assets.list()) {
             if (StringTools.startsWith(asset, path + "/")) {
                 var relative = asset.substr(path.length + 1);
-
-                if (relative.indexOf("/") == -1 && relative != "") {
+                if (relative.indexOf("/") == -1 && relative != "")
                     files.push(relative);
-                }
             }
         }
 
         return files;
-    }
+	}
 
 	public static function isDirectory(path:String):Bool {
         #if sys
