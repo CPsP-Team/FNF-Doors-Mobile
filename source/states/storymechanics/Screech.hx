@@ -130,7 +130,8 @@ class Screech extends BaseSMMechanic {
 	}
 	
 	private function handleCanDodgeState() {
-		if (FlxG.keys.justPressed.SPACE #if mobile || (FlxG.touches.list.justPressed && FlxG.touches.list.overlaps(spacebarPrompt)) #end) {
+	  for (touch in FlxG.touches.list) {
+		if (FlxG.keys.justPressed.SPACE #if mobile || (touch.justPressed && touch.overlaps(spacebarPrompt)) #end) {
 			currentState = Dodged;
 			screechLeave.visible = true;
 			screechLeave.animation.play('stop', true, false, 6);
@@ -140,6 +141,7 @@ class Screech extends BaseSMMechanic {
 			screechLeave.animation.finished = false;
 			MenuSongManager.playSound("screechCaught", 0.6);
 		}
+	  }
 	}
 
 	private function handleActiveState(elapsed:Float) {
