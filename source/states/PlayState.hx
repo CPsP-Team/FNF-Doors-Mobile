@@ -50,6 +50,7 @@ import AwardsManager;
 import StageData;
 #if mobile
 import mobile.MobileControls;
+import mobile.flixel.FlxPauseButton;
 #end
 import FunkinLua;
 import objects.ColorBar;
@@ -2748,6 +2749,12 @@ class PlayState extends MusicBeatState
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
+
+		#if mobile
+		FlxPauseButton.showPauseButton(null, function() {
+		openPauseMenu();
+		});
+	    #end
 
 		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.pitch = playbackRate;
