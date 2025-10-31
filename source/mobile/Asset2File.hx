@@ -45,7 +45,7 @@ class Asset2File
         #if sys
         return sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path);
         #else
-        for (asset in lime.utils.Assets.list()) {
+        for (asset in Assets.list()) {
             if (StringTools.startsWith(asset, path + "/")) {
                 return true;
             }
