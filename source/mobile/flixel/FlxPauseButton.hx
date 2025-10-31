@@ -20,6 +20,7 @@ class FlxPauseButton
     private var pauseButton:FlxSprite;
     private var isVisible:Bool = false;
     private var onClickCallback:Void->Void;
+	public var camPause:FlxCamera;
     
     public static function getInstance():FlxPauseButton 
     {
@@ -40,12 +41,12 @@ class FlxPauseButton
      * @param parent - Group where the button will be added (optional)
      * @param onClick - Callback for when the button is clicked (optional)
      */
-    public static function showPauseButtonOnCamera(camera:flixel.FlxCamera, ?parent:FlxGroup, ?onClick:Void->Void):Void 
+    public static function showPauseButton(?parent:FlxGroup, ?onClick:Void->Void):Void 
     {
         #if mobile
         var manager = getInstance();
         
-        manager.pauseButton = new FlxSprite().loadGraphic('assets/mobile/game/pauseButton.png');
+        manager.pauseButton = new FlxSprite().loadGraphic('mobile/game/pauseButton.png');
         manager.pauseButton.antialiasing = true;
         manager.pauseButton.scrollFactor.set();
         manager.pauseButton.alpha = 0.7;
@@ -54,8 +55,12 @@ class FlxPauseButton
         
         manager.pauseButton.x = FlxG.width - manager.pauseButton.width - 20;
         manager.pauseButton.y = 20;
+
+		camPause = new FlxCamera();
+		FlxG.cameras.add(camPause, false);
+		camPause.bgColor.alpha = 0;
         
-        manager.pauseButton.cameras = [camera];
+        manager.pauseButton.cameras = [camPause];
         
         manager.onClickCallback = onClick;
         
