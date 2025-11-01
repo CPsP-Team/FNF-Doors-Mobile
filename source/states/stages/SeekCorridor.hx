@@ -828,6 +828,7 @@ class SeekCorridor extends BaseStage
             case "toggleSeekPov":
                 if(isPov) {
                     PlayState.instance.dadGroup.x -= 300;
+					PlayState.instance.boyfriendGroup.alpha = 1;
                     theBigRed.alpha = 0;
                     theRedStatic.alpha = 0;
                     
@@ -846,6 +847,7 @@ class SeekCorridor extends BaseStage
                     fgFurnitureGroup.visible = true;
                 } else {
                     PlayState.instance.dadGroup.x += 300;
+					PlayState.instance.boyfriendGroup.alpha = 0.000001;
                     theBigRed.alpha = 0.4;
                     theRedStatic.alpha = 1;
                     
