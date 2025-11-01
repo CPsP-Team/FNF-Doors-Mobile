@@ -45,7 +45,7 @@ class FlxPauseButton
         #if mobile
         var manager = getInstance();
         
-        manager.pauseButton = new FlxSprite().loadGraphic('mobile/game/pauseButton.png');
+        manager.pauseButton = new FlxSprite().loadGraphic('assets/mobile/game/pauseButton.png');
         manager.pauseButton.antialiasing = true;
         manager.pauseButton.scrollFactor.set();
         manager.pauseButton.alpha = 0.7;
