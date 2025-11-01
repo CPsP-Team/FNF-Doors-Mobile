@@ -100,7 +100,7 @@ class MessagePopup extends PopUp
         bigText.selectable = false;
         bigText.wordWrap = true;
 
-        bigText.x = getScreenWidth()-popupWidth+11;
+        bigText.x = getScreenWidth()-popupWidth+11 #if mobile + 20 #end;
         bigText.y = popupY+8;
         
         descText = new TextField();
@@ -113,14 +113,14 @@ class MessagePopup extends PopUp
         descText.selectable = false;
         descText.wordWrap = true;
 
-        descText.x = getScreenWidth()-popupWidth+11;
+        descText.x = getScreenWidth()-popupWidth+11 #if mobile + 20 #end;
         descText.y = popupY+36;
     }
     override public function update(deltaTime:Float)
     {
         super.update(deltaTime);
-        bigText.y = popupY+(8* (getScreenWidth()/1280));
-        descText.y = popupY+(36* (getScreenWidth()/1280));
+        bigText.y = popupY+(8* (getScreenWidth()/1280)) #if mobile + 20 #end;
+        descText.y = popupY+(36* (getScreenWidth()/1280)) #if mobile + 20 #end;
     }
 }
 class ClickableMessagePopup extends PopUp
@@ -143,7 +143,7 @@ class ClickableMessagePopup extends PopUp
         bigText.selectable = false;
         bigText.wordWrap = true;
 
-        bigText.x = getScreenWidth()-popupWidth+11;
+        bigText.x = getScreenWidth()-popupWidth+11 #if mobile + 20 #end;
         bigText.y = popupY+8;
         
         descText = new TextField();
@@ -156,7 +156,7 @@ class ClickableMessagePopup extends PopUp
         descText.selectable = false;
         descText.wordWrap = true;
 
-        descText.x = getScreenWidth()-popupWidth+11;
+        descText.x = getScreenWidth()-popupWidth+11 #if mobile + 20 #end;
         descText.y = popupY+36;
 
         hitbox = new FlxObject(0,0,popupWidth,popupHeight);
@@ -164,8 +164,8 @@ class ClickableMessagePopup extends PopUp
     override public function update(deltaTime:Float)
     {
         super.update(deltaTime);
-        bigText.y = popupY+(8* (getScreenWidth()/1280));
-        descText.y = popupY+(36* (getScreenWidth()/1280));
+        bigText.y = popupY+(8* (getScreenWidth()/1280)) #if mobile + 20 #end;
+        descText.y = popupY+(36* (getScreenWidth()/1280)) #if mobile + 20 #end;
         hitbox.x = bg.x;
         hitbox.y = bg.y;
        
@@ -218,16 +218,16 @@ class AwardPopup extends PopUp
         image.scaleX = spriteImage.scale.x;
         image.scaleY = spriteImage.scale.y;
 
-        bigText.x = getScreenWidth()-popupWidth+11;
-        smallText.x = getScreenWidth()-popupWidth+11;
-        image.x = getScreenWidth()-(78 * bg.scaleX);
+        bigText.x = getScreenWidth()-popupWidth+11 #if mobile + 20 #end;
+        smallText.x = getScreenWidth()-popupWidth+11 #if mobile + 20 #end;
+        image.x = getScreenWidth()-(78 * bg.scaleX) #if mobile + 20 #end;
     }
     override public function update(deltaTime:Float)
     {
         super.update(deltaTime);
-        bigText.y = popupY+(8* (getScreenWidth()/1280));
-        smallText.y = popupY+(36* (getScreenWidth()/1280));
-        image.y = popupY+(3* (getScreenWidth()/1280));
+        bigText.y = popupY+(8* (getScreenWidth()/1280)) #if mobile + 20 #end;
+        smallText.y = popupY+(36* (getScreenWidth()/1280)) #if mobile + 20 #end;
+        image.y = popupY+(3* (getScreenWidth()/1280)) #if mobile + 20 #end;
     }
 }
 
